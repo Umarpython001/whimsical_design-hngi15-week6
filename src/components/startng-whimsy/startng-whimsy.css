@@ -1,0 +1,138 @@
+/* ==========================================================================
+   startng-whimsy — decorative SVG component kit for the start.ng rebuild
+   --------------------------------------------------------------------------
+   Owned by the whimsy agent. Do not merge into global stylesheets.
+
+   - Namespaced under `.sngw-` to avoid collisions.
+   - Colours are read from the site's real design tokens (see
+     `.impeccable/research/startng-real.css`) with light-mode fallbacks, so
+     the components render correctly before, during and after the main build
+     wires the tokens, and follow dark mode automatically once
+     `[data-theme=dark]` tokens exist. No new colours are introduced.
+   - All components are decorative: aria-hidden, focusable="false",
+     pointer-events: none — they can never intercept clicks or focus.
+   - Motion is one-shot and opt-in only; nothing loops; everything is
+     disabled under `prefers-reduced-motion` (decision D7).
+   ========================================================================== */
+
+.sngw {
+  /* Local aliases: real token first, light-mode fallback second. */
+  --sngw-ink: var(--ink, #292a23);
+  --sngw-muted: var(--muted, #6b6c63);
+  --sngw-lime: var(--lime, #d8fd71);
+  --sngw-line: var(--line, #e4e2d6);
+  --sngw-delay: 0ms;
+
+  display: inline-block;
+  vertical-align: -0.125em; /* optical alignment next to text */
+  pointer-events: none;
+}
+
+/* ---- Colour utilities (used on SVG parts) ------------------------------- */
+
+.sngw-fill-ink { fill: var(--sngw-ink); }
+.sngw-fill-muted { fill: var(--sngw-muted); }
+.sngw-fill-lime { fill: var(--sngw-lime); }
+
+.sngw-stroke-ink { stroke: var(--sngw-ink); }
+.sngw-stroke-muted { stroke: var(--sngw-muted); }
+.sngw-stroke-lime { stroke: var(--sngw-lime); }
+
+/* ==========================================================================
+   ArcadeSparkle
+   ========================================================================== */
+
+.sngw-sparkle__star,
+.sngw-sparkle__sat {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+/* One-shot "settle-in": the sparkle lands, over-shoots a touch, rests.
+   Opt-in via the `twinkle` prop; runs once; never loops. */
+.sngw-sparkle--twinkle .sngw-sparkle__star {
+  animation: sngw-twinkle 900ms cubic-bezier(0.22, 0.75, 0.3, 1) both;
+  animation-delay: var(--sngw-delay);
+}
+
+.sngw-sparkle--twinkle .sngw-sparkle__sat {
+  animation: sngw-pop 600ms cubic-bezier(0.22, 0.9, 0.35, 1.2) both;
+  animation-delay: calc(var(--sngw-delay) + 240ms);
+}
+
+@keyframes sngw-twinkle {
+  from { opacity: 0; transform: scale(0.35) rotate(-24deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes sngw-pop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sngw-sparkle--twinkle .sngw-sparkle__star,
+  .sngw-sparkle--twinkle .sngw-sparkle__sat {
+    animation: none; /* keyframes stop applying; sparkle is fully visible */
+  }
+}
+
+/* ==========================================================================
+   ArcadeAccent — a tiny doodle placed around existing content
+   ========================================================================== */
+
+.sngw-accent {
+  display: inline-flex;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.sngw-accent--inline-start { vertical-align: -0.125em; margin-inline-end: 0.45em; }
+.sngw-accent--inline-end { vertical-align: -0.125em; margin-inline-start: 0.45em; }
+
+/* Corner placements sit just OUTSIDE the anchor's corner (kissing it), so
+   they never cover text or controls. em offsets scale with the anchor's own
+   type size. The anchor (or a wrapper) must have `position: relative`. */
+.sngw-accent--top-left,
+.sngw-accent--top-right,
+.sngw-accent--bottom-left,
+.sngw-accent--bottom-right {
+  position: absolute;
+  top: -0.6em;
+  left: -0.7em;
+}
+.sngw-accent--top-right { top: -0.6em; left: auto; right: -0.7em; }
+.sngw-accent--bottom-left { top: auto; left: -0.7em; bottom: -0.6em; }
+.sngw-accent--bottom-right { top: auto; left: auto; right: -0.7em; bottom: -0.6em; }
+
+/* ==========================================================================
+   WhimsyBackdrop — sparse corner marks for a section background
+   ========================================================================== */
+
+.sngw-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sngw-backdrop__mark {
+  position: absolute;
+  line-height: 0;
+}
+
+.sngw-backdrop--corners .sngw-backdrop__m-tl { top: 22px; left: 26px; }
+.sngw-backdrop--corners .sngw-backdrop__m-tr { top: 26px; right: 30px; }
+.sngw-backdrop--corners .sngw-backdrop__m-br { bottom: 22px; right: 26px; }
+.sngw-backdrop--corners .sngw-backdrop__m-bl { bottom: 26px; left: 30px; }
+
+/* `frame` adds two faint mid-edge marks to the corners composition. */
+.sngw-backdrop--frame .sngw-backdrop__m-t { top: 18px; left: 38%; }
+.sngw-backdrop--frame .sngw-backdrop__m-b { bottom: 16px; left: 55%; }
+
+/* Mirrors the whole composition horizontally. */
+.sngw-backdrop--flip { transform: scaleX(-1); }
+
+/* Keeps narrow viewports clean: decorations hide where space is tight. */
+@media (max-width: 700px) {
+  .sngw-backdrop--responsive { display: none; }
+}
