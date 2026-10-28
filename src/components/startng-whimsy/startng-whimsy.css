@@ -138,7 +138,7 @@
 }
 
 /* —∎— Halloween mode (Oct 25–31). Activated by setting `data-halloween` on <html> or a .sngw parent.
-   The Hallowhimsy JS component toggles visibility; this CSS merely exposes the motifs when the
+   The Halloween.jsx components toggle visibility; this CSS merely exposes the motifs when the
    JS has determined the date window is active. */
 html[data-halloween] .sngw-halloween-on { display: block !important; }
 html[data-halloween] .sngw-halloween-off { display: none !important; }

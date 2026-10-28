@@ -86,9 +86,10 @@ corner accents sit **outside** the anchor's corner, backdrops hug section edges.
 
 ## Motion policy (D7)
 
-- Nothing loops or idles. `twinkle`/`hoverTwinkle` are one-shot (≤900ms).
+- Nothing loops or idles — with the one user-ordered exception of `FlyingBats`
+  (ambient, slow, see above). `twinkle`/`hoverTwinkle` are one-shot (≤900ms).
 - All motion is disabled under `prefers-reduced-motion` — elements render
-  fully visible and static.
+  fully visible and static (the bats sit still).
 - No new dependencies, no animation libraries.
 
 ## Try it

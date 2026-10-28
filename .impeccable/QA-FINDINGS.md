@@ -59,7 +59,7 @@ break the rebuild's core constraint.
 
 | Interaction | Expected | Actual |
 |---|---|---|
-| Theme toggle (header) | `data-theme` flips, `localStorage.theme` set | light → dark, stored `dark`, **persists after reload** |
+| Theme toggle (header) | 40×40 icon button, `data-theme` flips, `localStorage.theme` set | light → dark, stored `dark`, **persists after reload**, `aria-label` "Switch to light theme" |
 | A–Z `<details>` | opens, reveals 188 rows | 188 rows, bat swoops once (`az-bat-swoop`) |
 | FAQ `<details>` ×6 | each opens | 6/6 open |
 | Featured card hover | lift ≤4 px, cover zoom, bat fades in, "Play" turns lime | bat `opacity: 0 → 1`, transform applied |
@@ -67,6 +67,26 @@ break the rebuild's core constraint.
 | Tab order | logo → nav → theme → hero CTA → cards | 10/10 stops with visible 2 px focus ring |
 | CTA pumpkin | wiggles once on hover/focus only | one-shot keyframe, no idle loop |
 | Mobile menu (`<760px`) | hamburger toggles nav panel, theme moves into panel | open/close + `aria-expanded` correct |
+
+## Ambient hero bats (added by WHIMSY, integrated in `App.jsx`)
+
+Five bats drift in the hero's top band (5–23% of the hero, ≤64 px travel, 13–19 s
+loops, wing beats 1.05–1.5 s). Verified:
+
+- Layer `display: none` below 760 px (mobile keeps the inline motifs only).
+- Sampled 8 moments over ~10 s at 1440 / 1024 / 800 / 760 px against the glyph rects
+  of the nav, eyebrow, H1, lead, CTA and ghost button: **0 overlaps**, worst 0 px².
+  Bats occupy the band 20–133 px inside the hero, above the headline block.
+- `pointer-events: none`, `aria-hidden`, never a tab stop.
+- Under `prefers-reduced-motion: reduce`: flight `animation-name: none`, wing beat
+  `animation-name: none` — the bats park, nothing moves.
+
+> **Open decision for the user:** this is the only *continuous* motion on the page.
+> `PRODUCT.md` D7 and `master_prompt.md` §4 ("no continuous idle animation") rule
+> that out for ambient decoration. The component header records it as user-ordered
+> and it is committed, so it is left in place pending confirmation. Kill switch:
+> remove `<FlyingBats />` at `src/App.jsx:159` (one line, no layout change) or set
+> `HALLOWEEN = false` to drop the whole seasonal layer.
 
 ## Reduced motion (`reducedMotion: 'reduce'`)
 

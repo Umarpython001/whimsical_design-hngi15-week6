@@ -4,7 +4,8 @@ import './App.css'
 import { ArcadeSparkle } from './components/startng-whimsy/ArcadeSparkle'
 import { GamepadDoodle } from './components/startng-whimsy/GamepadDoodle'
 import { PixelTrail } from './components/startng-whimsy/PixelTrail'
-import { HALLOWEEN, Bat, CandyCorn, Cobweb, FlyingBats, Ghost, Pumpkin } from './components/startng-whimsy/Halloween'
+import { HALLOWEEN, Bat, CandyCorn, Cobweb, Ghost, Pumpkin } from './components/startng-whimsy/Halloween'
+import { FlyingBats } from './components/startng-whimsy/FlyingBats'
 
 /* Drawn sun/moon icons — no emoji chargers, one stroke weight */
 function SunMoonIcon({ dark }) {

@@ -95,7 +95,7 @@
     "code": "5px",
     "pill": "999px",
     "max": "18px",
-    "rule": "Constraint D8: cards keep a >=1px --line border and radius <= 18px."
+    "rule": "Cards keep a >=1px --line border and radius <= 18px."
   },
   "motion": {
     "easings": {
@@ -105,6 +105,7 @@
       "pop": "cubic-bezier(0.22, 0.9, 0.35, 1)",
       "hoverReply": "cubic-bezier(0.22, 0.9, 0.3, 1)",
       "micro": "cubic-bezier(0.3, 0.7, 0.4, 1)",
+      "loop": "ease-in-out",
       "stateDefault": "ease"
     },
     "durations": {
@@ -116,36 +117,87 @@
       "markDraw": "700ms",
       "sparkleTwinkle": "900ms",
       "sparklePop": "600ms",
+      "webSettle": "800ms",
+      "swoop": "700ms",
+      "boo": "600ms",
+      "squiggle": "260ms",
       "wiggle": "500ms",
-      "flap": "600ms"
+      "flap": "600ms",
+      "idleFloat": "2600ms"
     },
     "signatures": {
       "markDraw": "hero <mark>::before draws the lime highlighter once: scaleY(0->1) from left bottom, inset 62% 0 8% 0, 700ms drawIn easing, 250ms delay",
+      "webSettle": "cobweb one-shot settle (opt-in `settle` prop): sngw-web-settle 800ms pop easing, translate 0 -10px -> 0 2px -> -1px -> 0, rotate -5deg -> 2deg -> -1deg -> 0; keyframed on individual translate/rotate so mirrored cobwebs keep their inline flip",
       "cardLift": ".game:hover translateY(-4px) scale(1.03) on spring easing + box-shadow 6px 8px 0 var(--lime) + border-color var(--ink)",
-      "btnHover": "solid buttons go --solid-hover with 0 0 0 3px var(--lime) ring; active translateY(1px)"
+      "btnHover": "solid buttons go --solid-hover with 0 0 0 3px var(--lime) ring; active translateY(1px); Halloween CTA lantern wiggles on hover/focus-visible (btn-pumpkin-wiggle 500ms)"
+    },
+    "hoverReplies": {
+      "trigger": "ancestor marked .sngw-anchor (hero, #games, see-all row, how); interaction-triggered, never idle",
+      "pumpkinWiggle": "sngw-wiggle 500ms hoverReply easing, rotate -7deg/5deg",
+      "batFlap": "sngw-flap 600ms hoverReply easing, scale 1.12x0.82 -> 0.94x1.1",
+      "batSwoop": "sngw-swoop 700ms micro easing, one-shot rise-and-settle <=3px",
+      "ghostBoo": "sngw-boo 600ms micro easing, one-shot swell to scale 1.08",
+      "sparkleHover": "sngw-anchor:hover replays twinkle/pop on a .sngw-sparkle--hover (a 14px hover-twinkle sparkle sits by the See-all button)",
+      "squiggle": "sngw-wiggle 260ms x2 on anchor hover"
+    },
+    "flightLoops": {
+      "component": "FlyingBats (src/components/startng-whimsy/FlyingBats.jsx) + .sngw-batfly* in startng-whimsy.css",
+      "status": "the ONE continuously-animated element in the kit — explicit user-ordered exception to the one-shot rule",
+      "bats": 5,
+      "composition": "4 ink silhouettes + 1 lime (bat d); sizes 16-30px; svg opacity 0.9",
+      "loops": [
+        { "bat": "a", "duration": "15s", "negativeDelay": "-3s" },
+        { "bat": "b", "duration": "19s", "negativeDelay": "-11s" },
+        { "bat": "c", "duration": "13s", "negativeDelay": "-6.5s" },
+        { "bat": "d", "duration": "17s", "negativeDelay": "-1.5s" },
+        { "bat": "e", "duration": "13.5s", "negativeDelay": "-16s" }
+      ],
+      "durationRange": "13-19s per bat, each with its own path shape, closed (0% == 100%) so loops are seamless",
+      "delays": "negative on every bat — each starts mid-loop; there is no take-off moment on load",
+      "amplitude": "translate <=64px, banking <=8deg, ease-in-out infinite",
+      "confinement": "hero upper/side margins only: base spots top 6-23%, left 2.5-9.5%, right 3.5-7%; never crosses headline, lead, or CTA row",
+      "layer": "absolute inset 0, z-index 2 (above backdrop, below nav z-30), pointer-events: none, aria-hidden"
+    },
+    "wingbeat": {
+      "keyframes": "sngw-wingbeat: scale(1,1) -> scale(1.05, 0.86) at 50% -> scale(1,1)",
+      "target": "nested wing <g> only (.sngw-batfly__wings, transform-origin 50% 55%)",
+      "tempo": "var(--sngw-wing-ms, 1200ms) per bat: 1300/1050/1500/1400/1150ms, ease-in-out infinite",
+      "couples": "loops only as part of the flight; dies with it under reduced motion"
+    },
+    "idleFloat": {
+      "class": ".sngw-idle: sngw-float 2600ms ease-in-out infinite alternate, <=3px",
+      "note": "opt-in via idle prop on Bat/Ghost/Pumpkin; the only other infinite animation in the kit and NOT used on the homepage"
     },
     "rules": [
-      "One-shot motion only: entrance animations run once with both fill; nothing loops.",
-      "Hover replies are interaction-triggered, never idle animation.",
-      "Decorative lifts stay <=3px and 150-200ms.",
-      "Every animation has a prefers-reduced-motion: reduce guard that disables it while keeping artwork fully visible."
+      "One-shot motion by default: entrance animations run once with both fill; nothing loops.",
+      "Hover replies are interaction-triggered, never idle animation; lifts stay <=3px and 150-200ms.",
+      "FlyingBats is the sole continuous animation — an explicit user-ordered exception; no second ambient loop may be added without the same order.",
+      "Every animation has a prefers-reduced-motion: reduce guard that disables it while keeping the artwork fully visible."
     ],
-    "reducedMotion": "Global kill in index.css (0.01ms durations, 1 iteration) plus per-effect guards on .hero mark::before, .game, and all .sngw-* animations."
+    "reducedMotion": "all decorative animation disabled: bats sit static at their base spots (flight + wingbeat animation: none), entrances shown fully drawn, hover replies off; global kill-switch in index.css clamps all durations to 0.01ms",
+    "mobile": "corner motifs hidden <=640px: hero cobwebs, hero bats, the whole .sngw-batfly layer, see-all pumpkin, see-all trail dots, see-all sparkle; <=760px App.css also hides hero web/bat/ghost, how web/corn, footer web/bat, card-bat, see-all trail"
+  },
+  "whimsy": {
+    "namespace": ".sngw- (src/components/startng-whimsy/), owned by the whimsy agent, never merged into global stylesheets",
+    "colourDiscipline": "local aliases read the page tokens with light-mode fallbacks (--sngw-ink/muted/lime/line/card); fill/stroke utilities only; the sole new hue is the scoped Halloween pumpkin orange",
+    "icons": "drawn-SVG-only: hand-authored inline paths, aria-hidden + focusable=false + pointer-events: none",
+    "provenance": "rebuild addition; the inherited real-site system (tokens, nav blur, mark gradient, card spring, sticker shadow) carries no whimsy code"
   },
   "halloween": {
     "active": true,
-    "window": "Oct 28-31",
-    "flag": "HALLOWEEN = true in src/components/startng-whimsy/Halloween.jsx (flip to false to remove the layer)",
+    "window": "Oct 28-31 (Halloween.jsx HALLOWEEN flag); the alternate Hallowhimsy motif set uses an Oct 25-31 window gated by <html data-halloween> with a data-halloween-disabled opt-out",
+    "flag": "HALLOWEEN = true in src/components/startng-whimsy/Halloween.jsx (flip to false to remove the layer; PixelTrail doodles return beside the see-all button)",
     "pumpkinOrange": "#e8641e",
-    "pumpkinScope": "--sngw-pumpkin defined only on .sngw-hw; consumed only by .sngw-fill-pumpkin; never used on UI chrome, text, or tokens",
-    "motifs": ["Bat", "Ghost", "Pumpkin", "Cobweb"],
-    "placement": "Cobweb top-left of hero; two bats absolute in hero; pumpkin near the see-all row (swaps in for the PixelTrail doodles); ghost stays inline on all screens",
+    "pumpkinScope": "--sngw-pumpkin defined only on .sngw-pumpkin/.sngw-hw elements; consumed by .sngw-fill-pumpkin and --sngw-lantern (var(--sngw-pumpkin, var(--lime))); never on UI chrome, text, or page tokens",
+    "motifs": ["Bat", "Ghost", "Pumpkin", "Cobweb", "CandyCorn"],
+    "placement": "hero corners (cobwebs top-left/top-right with settle, ghost bottom-right), one bat per featured card (card-bat), footer cobweb + lime bat, candy corn in how, lantern inside the CTA, pumpkin beside the see-all row",
     "motion": {
       "pumpkin": "sngw-wiggle 500ms on hover (rotate -7deg/5deg settle)",
       "bat": "sngw-flap 600ms on hover (scale 1.12x0.82 -> 0.94x1.1 settle)",
-      "rule": "Hover-reply only; disabled under prefers-reduced-motion"
+      "cobweb": "sngw-web-settle 800ms one-shot on load (settle prop)",
+      "rule": "Hover-reply or one-shot only; no idle animation; disabled under prefers-reduced-motion"
     },
-    "smallScreens": "Hero .sngw-cobweb and .sngw-bat plus .see-all .sngw-pumpkin hide at <=640px; the inline ghost remains",
+    "smallScreens": "corner motifs + see-all pumpkin + see-all trail dots + .sngw-batfly hidden <=640px; small inline motifs remain",
     "provenance": "Addition by this rebuild; all non-pumpkin colour comes from the inherited page tokens"
   }
 }

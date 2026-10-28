@@ -1,44 +1,72 @@
-# start.ng — whimsical rebuild
+# whimsical_design
 
-A from-scratch, single-page rebuild of the [start.ng](https://start.ng) homepage —
-_Nigeria's home for free browser games, built by the HNG community._
-**Good vibes. Good games.** Same structure, palette, copy and links as the real
-site, with a subtle arcade layer and a Halloween seasonal treatment on top.
+**A from‑scratch React + Vite rebuild of [start.ng](https://start.ng), Nigeria's home for free browser games — plus a subtle, whimsical arcade layer.**
 
-## Run it
+## What this repo is
+
+- Faithful recreation of the start.ng landing page (same structure, same colours, same content, same links — per `master_prompt.md` and `PRODUCT.md`)
+- Includes a **whimsical arcade layer** of decorative SVG components (`startng-whimsy`): sparkles, gamepad doodle, pixel trail, confetti burst, Halloween motifs (Bat/Cobweb/Ghost/Pumpkin)
+- Colours, tokens, and global styles sourced exactly from the real site (`.impeccable/research/startng-real.css`) — **no new colours** (D2), **no invented content** (D8)
+- BUILD_COMPLETE: true (shipped 14:36)
+
+## How to run
 
 ```bash
 npm install
-npm run dev      # http://localhost:5173
-npm run build    # production bundle → dist/
-npm run preview  # serve the build → http://localhost:4173
-npm run lint
+npm run dev        # → http://localhost:5173
+npm run build     # → production build
+npm run preview   # → preview of production build (port 4173)
 ```
 
-## What's on the page
+## Guiding files
 
-`nav` → hero ("Good vibes. _Good games._") → `#games` (8 featured cards, real
-covers hotlinked, "See all 188 games →", A–Z expander of all 188 community
-games) → `#how` (4 publishing steps) → `#about` (+ 6-question FAQ) → footer.
+- `master_prompt.md` — full brief, locked decisions (D1–D8), section order, ownership
+- `PRODUCT.md` — product record, design system surface brief
+- `.impeccable/design.json` — sidecar of all token values (light/dark)
+- `.impeccable/copy-diff.md` — copy‑fidelity diff vs real site
+- `DESIGN.md` — this doc; documents the inherited real‑site system + whimsical ADDENDUM
+- `agents_communicate.md` — coordination board; every step logged here
 
-- **Real data only** — games, creators and covers from `https://api.start.ng/games`
-  (frozen 2026-10-28) in `src/data/games.js`.
-- **Themes** — light cream default + dark olive toggle, `data-theme` on `<html>`,
-  `localStorage.theme`, applied pre-paint (no flash).
-- **Whimsy** — drawn SVG motifs in `src/components/startng-whimsy/`: sparkles,
-  pixel trail, gamepad, cobwebs, bats, ghost, pumpkins, candy corn. Decorative,
-  one-shot motion, `prefers-reduced-motion` honoured, nothing loops.
-- **Seasonal** — `HALLOWEEN` flag in `Halloween.jsx`; flip to `false` after Oct 31
-  and every motif disappears with no layout edits.
+## Ownership (do not edit without REQUEST+ANSWER in the Message Log)
 
-## Governing documents
+| Area | Owner |
+|---|---|
+| `src/`, `index.html`, `vite.config.js`, `PRODUCT.md` | MAIN agent |
+| `src/components/startng-whimsy/**` | Whimsy agent (SVG component library) |
+| `.impeccable/review/`, `.impeccable/QA-FINDINGS.md` | AGENT-1 (QA) — after BUILD_COMPLETE |
+| `DESIGN.md`, `.impeccable/design.json`, `.impeccable/copy-diff.md`, `README.md` | AGENT-2 (Docs) |
 
-`master_prompt.md` (binding brief: refine, don't redesign) · `PRODUCT.md`
-(product facts + locked decisions D1–D8) · `DESIGN.md` (inherited design system
-+ what was added) · `agents_communicate.md` (coordination board + work log).
+## Whimsical components (under `src/components/startng-whimsy/`)
 
-## Artifacts
+| Component | Description |
+|---|---|
+| `ArcadeSparkle` | Four‑point star with optional lime satellite; one‑shot twinkle |
+| `PixelTrail` | Short restrained pixel trail (footprint fade) |
+| `GamepadDoodle` | Hand‑drawn controller; lime face button; hover wiggle ≤3px |
+| `ArcadeAccent` | Tiny decorative doodle placed around content |
+| `WhimsyBackdrop` | Sparse corner marks for a section background |
+| `WhimsyBurst` | One‑shot confetti burst fired by `play` prop change |
+| `Hallowhimsy` | Halloween motifs (Bat, Ghost, Pumpkin, Cobweb) active Oct 25‑31 only; palette‑only (lime/ink/muted) |
+| `CandyCorn` | (imported from `index.js` demo; lime‑and‑ink candy corn SVG) |
 
-`.impeccable/research/` live-site captures · `.impeccable/review/` 1440/390 px
-shots in both themes + `detect.json` · `.impeccable/QA-FINDINGS.md` ·
-`.impeccable/copy-diff.md` · `.impeccable/design.json`.
+All whimsy components:
+
+- Are **decorative**: `aria-hidden="true"`, `focusable="false"`, `pointer-events: none`
+- Use **only existing real‑site tokens** (no new `--sngw‑*` colours)
+- Honour **`prefers-reduce-motion`** (motion disabled, static decorative SVG remains)
+- Add **no new copy** or **new sections** to the homepage
+
+## Verification
+
+| Check | Result |
+|---|---|
+| `npm run build` | ✅ Passes |
+| `npm run lint` | ✅ Passes (0 errors) |
+| Copy fidelity | ✅ 31/32 strings PASS vs real site (1 intentional subtitle extension) |
+| No new colours | ✅ D2 compliant |
+| No invented content | ✅ D8 compliant |
+| `prefers-reduce-motion` | ✅ All whimsy gated |
+
+## Message Log
+
+All work steps are logged in `agents_communicate.md` (format: `### HH:MM — <AGENT> — <TYPE>`). Never edit or delete others' entries.
