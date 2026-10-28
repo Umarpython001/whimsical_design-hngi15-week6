@@ -6,8 +6,8 @@
 // lantern body picks it up automatically (see `.sngw-fill-lantern`).
 //
 // Motion (D7): static by default; Bat/Ghost accept opt-in hover
-// micro-interactions (one-shot, ≤3px); everything is disabled under
-// prefers-reduced-motion. Nothing loops.
+// micro-interactions and an opt-in `idle` float; everything is disabled under
+// prefers-reduced-motion. Nothing loops unless `idle` is explicitly passed.
 //
 // Flip `HALLOWEEN` to false after the season and the entire layer
 // disappears from the page with zero layout edits.
@@ -23,6 +23,7 @@ export function Bat({
   size = 22,
   tone = 'ink', // 'ink' silhouette (default) | 'lime' body + ink eyes
   hoverSwoop = false,
+  idle = false,
   className = '',
   style,
   ...rest
@@ -34,7 +35,7 @@ export function Bat({
 
   return (
     <svg
-      className={`sngw sngw-bat${hoverSwoop ? ' sngw-bat--hover' : ''}${className ? ` ${className}` : ''}`}
+      className={`sngw sngw-bat${hoverSwoop ? ' sngw-bat--hover' : ''}${idle ? ' sngw-idle' : ''}${className ? ` ${className}` : ''}`}
       style={style}
       width={size}
       height={size * 0.5}
@@ -61,6 +62,7 @@ export function Ghost({
   size = 26,
   tone = 'duo', // 'duo' lime ghost, ink face (default) | 'ink' silhouette
   hoverBoo = false,
+  idle = false,
   className = '',
   style,
   ...rest
@@ -73,7 +75,7 @@ export function Ghost({
 
   return (
     <svg
-      className={`sngw sngw-ghost${hoverBoo ? ' sngw-ghost--hover' : ''}${className ? ` ${className}` : ''}`}
+      className={`sngw sngw-ghost${hoverBoo ? ' sngw-ghost--hover' : ''}${idle ? ' sngw-idle' : ''}${className ? ` ${className}` : ''}`}
       style={style}
       width={size}
       height={size * (30 / 26)}
@@ -100,6 +102,7 @@ export function Ghost({
 export function Pumpkin({
   size = 26,
   tone = 'duo', // 'duo' lime lantern + carved ink face (default) | 'ink' outline
+  idle = false,
   className = '',
   style,
   ...rest
@@ -111,7 +114,7 @@ export function Pumpkin({
 
   return (
     <svg
-      className={`sngw sngw-pumpkin${className ? ` ${className}` : ''}`}
+      className={`sngw sngw-pumpkin${idle ? ' sngw-idle' : ''}${className ? ` ${className}` : ''}`}
       style={style}
       width={size}
       height={size * (26 / 28)}
@@ -156,12 +159,12 @@ export function Pumpkin({
   );
 }
 
-export function Cobweb({ size = 40, className = '', style, ...rest }) {
+export function Cobweb({ size = 40, settle = false, className = '', style, ...rest }) {
   if (!HALLOWEEN) return null;
 
   return (
     <svg
-      className={`sngw sngw-web${className ? ` ${className}` : ''}`}
+      className={`sngw sngw-web${settle ? ' sngw-web--settle' : ''}${className ? ` ${className}` : ''}`}
       style={style}
       width={size}
       height={size}

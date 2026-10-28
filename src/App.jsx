@@ -4,7 +4,7 @@ import './App.css'
 import { ArcadeSparkle } from './components/startng-whimsy/ArcadeSparkle'
 import { GamepadDoodle } from './components/startng-whimsy/GamepadDoodle'
 import { PixelTrail } from './components/startng-whimsy/PixelTrail'
-import { HALLOWEEN, Bat, CandyCorn, Cobweb, Ghost, Pumpkin } from './components/startng-whimsy/Halloween'
+import { HALLOWEEN, Bat, CandyCorn, Cobweb, FlyingBats, Ghost, Pumpkin } from './components/startng-whimsy/Halloween'
 
 /* Drawn sun/moon icons — no emoji chargers, one stroke weight */
 function SunMoonIcon({ dark }) {
@@ -32,7 +32,6 @@ function ThemeToggle({ theme, onToggle, className = '' }) {
       title={dark ? 'Lights on' : 'Lights off'}
     >
       <SunMoonIcon dark={dark} />
-      <span>{dark ? 'Lights on' : 'Lights off'}</span>
     </button>
   )
 }
@@ -126,12 +125,14 @@ function Hero() {
       {HALLOWEEN && (
         <Cobweb
           size={64}
+          settle
           style={{ position: 'absolute', top: '6px', left: '14px', opacity: 0.9 }}
         />
       )}
       {HALLOWEEN && (
         <Cobweb
           size={52}
+          settle
           style={{
             position: 'absolute',
             top: '6px',
@@ -155,22 +156,7 @@ function Hero() {
         delay={800}
         style={{ position: 'absolute', top: '18%', right: '10%', opacity: 0.8 }}
       />
-      {HALLOWEEN && (
-        <Bat
-          size={30}
-          className="sngw-anchor-hover-reply"
-          style={{ position: 'absolute', top: '24%', right: '4.5%', opacity: 0.95 }}
-        />
-      )}
-      {HALLOWEEN && (
-        <Bat
-          size={20}
-          tone="ink"
-          delay={260}
-          className="sngw-anchor-hover-reply"
-          style={{ position: 'absolute', top: '36%', left: '4.5%', opacity: 0.92 }}
-        />
-      )}
+      {HALLOWEEN && <FlyingBats />}
       <p className="eyebrow">Big imagination. Played everywhere.</p>
       <h1>
         Good vibes.
@@ -223,7 +209,7 @@ function GamesSection() {
           <GameCard key={g.slug} game={g} />
         ))}
       </div>
-      <div className="see-all" style={{ position: 'relative' }}>
+      <div className="see-all sngw-anchor" style={{ position: 'relative' }}>
         {HALLOWEEN && (
           <Pumpkin
             size={34}
@@ -253,6 +239,17 @@ function GamesSection() {
         <a className="btn" href="/games">
           See all {AZ_COUNT} games →
         </a>
+        <ArcadeSparkle
+          size={14}
+          tone="duo"
+          hoverTwinkle
+          style={{
+            position: 'absolute',
+            left: 'calc(50% + 112px)',
+            top: 'calc(50% - 34px)',
+            opacity: 0.9,
+          }}
+        />
         <PixelTrail
           direction="left"
           steps={5}
@@ -268,6 +265,7 @@ function GamesSection() {
       </div>
       <details className="az-games">
         <summary>
+          {HALLOWEEN && <Bat size={18} className="az-bat" />}
           Every game on start.ng, A to Z ({AZ_COUNT})
           <span className="chev" aria-hidden="true" />
         </summary>
@@ -310,7 +308,7 @@ const HOW_STEPS = [
     b: 'Approve it once',
     span: (
       <>
-        Open the link you get back and it&rsquo;s live at <code>yourgame.start.ng</code>, with
+        Open the link you get back and it's live at <code>yourgame.start.ng</code>, with
         its own leaderboard if you want one. After that, every push updates it.
       </>
     ),
@@ -385,12 +383,12 @@ function About() {
       />
       <h2>About start.ng</h2>
       <p>
-        start.ng is Nigeria&rsquo;s home for browser games, built by the HNG community. Every
+        start.ng is Nigeria's home for browser games, built by the HNG community. Every
         game is free to play in your browser with no download, and many are made in Naija:
         danfo rush hour, jollof catching, Lagos markets and more.
       </p>
       <p>
-        We&rsquo;re also building a home for web games from across Africa. If you make games
+        We're also building a home for web games from across Africa. If you make games
         anywhere on the continent, you can put yours on start.ng for free.
       </p>
       <p>

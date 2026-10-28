@@ -9,6 +9,8 @@
 //                 disabled under prefers-reduced-motion)
 //   hoverTwinkle— replay the twinkle while a `.sngw-anchor` ancestor is
 //                 hovered (opt-in micro-interaction, also reduced-motion safe)
+//   idle        — gentle ≤3px floating loop (opt-in! use sparingly, e.g. one
+//                 hero sparkle; ignored when `twinkle` is set; reduced-motion safe)
 //   delay       — ms before the twinkle starts, for staggering a pair
 //   className/style — passthrough for positioning from the caller
 
@@ -22,6 +24,7 @@ export function ArcadeSparkle({
   tone = 'duo',
   twinkle = false,
   hoverTwinkle = false,
+  idle = false,
   delay = 0,
   className = '',
   style,
@@ -32,6 +35,7 @@ export function ArcadeSparkle({
     'sngw-sparkle',
     twinkle && 'sngw-sparkle--twinkle',
     hoverTwinkle && 'sngw-sparkle--hover',
+    idle && !twinkle && 'sngw-idle',
     className,
   ]
     .filter(Boolean)

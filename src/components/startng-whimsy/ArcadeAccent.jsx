@@ -4,6 +4,7 @@
 //
 // Props:
 //   variant    — 'sparkle' | 'cross' | 'dots' | 'pixels' | 'squiggle' | 'arc'
+//                | 'star' | 'bolt' | 'burst'
 //   placement  — 'inline-end' (default) | 'inline-start' |
 //                'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 //                Corner placements need a positioned ancestor
@@ -16,13 +17,25 @@
 import './startng-whimsy.css';
 import { PixelTrail } from './PixelTrail.jsx';
 
-const STAR =
+const STAR4 =
   'M12 1C12.7 6.6 17.4 11.3 23 12C17.4 12.7 12.7 17.4 12 23C11.3 17.4 6.6 12.7 1 12C6.6 11.3 11.3 6.6 12 1Z';
+const STAR5 =
+  'M12 1.5L14.7 8.8 22.5 9.1 16.4 13.9 18.5 21.4 12 17.1 5.5 21.4 7.6 13.9 1.5 9.1 9.3 8.8Z';
 
 const FILL = { ink: 'sngw-fill-ink', lime: 'sngw-fill-lime', muted: 'sngw-fill-muted' };
 const STROKE = { ink: 'sngw-stroke-ink', lime: 'sngw-stroke-lime', muted: 'sngw-stroke-muted' };
 
-const DEFAULT_SIZE = { sparkle: 14, cross: 12, dots: 12, pixels: 26, squiggle: 44, arc: 18 };
+const DEFAULT_SIZE = {
+  sparkle: 14,
+  cross: 12,
+  dots: 12,
+  pixels: 26,
+  squiggle: 44,
+  arc: 18,
+  star: 15,
+  bolt: 16,
+  burst: 16,
+};
 
 const PLACEMENTS = [
   'inline-end',
@@ -39,6 +52,8 @@ function Mark({ variant, size, tone }) {
 
   switch (variant) {
     case 'sparkle':
+    case 'star': {
+      const d = variant === 'sparkle' ? STAR4 : STAR5;
       return (
         <svg
           width={size}
@@ -50,11 +65,13 @@ function Mark({ variant, size, tone }) {
         >
           <path
             className={tone === 'lime' ? 'sngw-fill-lime sngw-stroke-ink' : f}
-            d={STAR}
+            d={d}
             strokeWidth={tone === 'lime' ? 1.25 : undefined}
+            strokeLinejoin="round"
           />
         </svg>
       );
+    }
     case 'cross':
       return (
         <svg
@@ -140,6 +157,42 @@ function Mark({ variant, size, tone }) {
           />
         </svg>
       );
+    case 'bolt':
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            className={tone === 'lime' ? 'sngw-fill-lime sngw-stroke-ink' : f}
+            d="M14.6 1L4.8 13.6h5.4L7.6 23 19.2 9.2h-6L16.9 1Z"
+            strokeWidth={tone === 'lime' ? 1.25 : undefined}
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    case 'burst':
+      return (
+        <svg
+          width={size}
+          height={size}
+          viewBox="0 0 24 24"
+          fill="none"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            className={s}
+            d="M17.5 12h4.2M12 2.5v4.2M6.5 12H2.3M12 21.5v-4.2M15.9 8.1l3-3M8.1 15.9l-3 3M15.9 15.9l3 3M8.1 8.1l-3-3"
+            strokeWidth="2.4"
+            strokeLinecap="round"
+          />
+        </svg>
+      );
     default:
       return null;
   }
@@ -159,7 +212,7 @@ export function ArcadeAccent({
 
   return (
     <span
-      className={`sngw sngw-accent sngw-accent--${place}${className ? ` ${className}` : ''}`}
+      className={`sngw sngw-accent sngw-accent--${place} sngw-accent--${variant}${className ? ` ${className}` : ''}`}
       style={style}
       aria-hidden="true"
       {...rest}

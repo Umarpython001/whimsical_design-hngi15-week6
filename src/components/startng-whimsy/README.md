@@ -31,8 +31,9 @@ is loaded for you and all classes are namespaced `sngw-`.
 | `ArcadeSparkle` | Four-point star + lime satellite; inline with headings or CTAs | `size=20`, `tone='duo'\|'ink'\|'lime'\|'muted'`, `twinkle`, `hoverTwinkle`, `delay` |
 | `PixelTrail` | Restrained fading pixel trail ("footprints") | `size=22`, `steps=4 (2–8)`, `direction='right'\|'left'\|'up'\|'down'`, `fade`, `tone='fresh'\|'ink'\|'muted'` |
 | `GamepadDoodle` | Original hand-drawn controller line art | `width=48`, `tilt=-6`, `hoverWiggle` |
-| `ArcadeAccent` | Tiny doodle placed around content: sparkle / cross / dots / pixels / squiggle / arc | `variant`, `placement`, `size`, `tone='ink'\|'lime'\|'muted'` |
-| `WhimsyBackdrop` | Sparse corner-mark composition for a section background | `variant='corners'\|'frame'`, `flip`, `hideOnSmall=true` |
+| `ArcadeAccent` | Tiny doodle placed around content: sparkle / star / cross / dots / pixels / squiggle / arc / bolt / burst | `variant`, `placement`, `size`, `tone='ink'\|'lime'\|'muted'` |
+| `WhimsyBackdrop` | Sparse corner-mark composition for a section background | `variant='corners'\|'frame'\|'halloween'`, `flip`, `hideOnSmall=true` |
+| `WhimsyBurst` | One-shot pixel-confetti celebration | `size=96`, `play` (bump the number to re-fire; 0 renders nothing) |
 
 All are decorative: `aria-hidden="true"`, `focusable="false"`,
 `pointer-events: none`. None of them can cover interactive elements by design —
@@ -116,13 +117,21 @@ showing every component in light/dark, with hover states and one-shot motion.
 - `HALLOWEEN` (boolean, currently `true`): every Halloween component renders
   `null` when it is false — flip it after the season and the layer vanishes
   with zero layout edits. MAIN can also read it to conditionally adapt copy.
-- **No new colours**: the layer is drawn in ink / lime / muted / card. The
-  lantern body resolves `var(--pumpkin, var(--lime))` — if MAIN ever defines a
-  `--pumpkin` token, the pumpkin turns orange everywhere, automatically.
+- **No new colours**: the layer is drawn in ink / lime / muted / card. The one
+  extended hue is the scoped pumpkin orange: `--sngw-pumpkin: #e8641e` is set
+  on `.sngw-pumpkin` (and the optional `.sngw-hw` scope) and the lantern body
+  resolves `var(--sngw-pumpkin, var(--lime))`, so pumpkins turn orange
+  wherever they render, in both themes, with no global token added.
+- `FlyingBats` — the kit's single ambient loop: 5 small hero bats on slow
+  closed-loop drift paths (13–19s, distinct paths/negative delays, soft wing
+  flap on a nested group). Mount once in the hero (`<FlyingBats />`; hero must
+  be `position: relative`). Upper/side margins only, never over the headline
+  or CTA; `pointer-events: none`; z-index 2; fully static under
+  prefers-reduced-motion and hidden ≤640px.
 - Backdrop: `<WhimsyBackdrop variant="halloween" />` composes cobweb (top-left),
   bat, pumpkin, ghost in the same corner slots as `corners`.
-- Suggested placements: cobweb top-left of the hero card, a bat pair near the
-  nav/hero edge, the pumpkin beside the "Publish it" how-step, ghost in the
+- Suggested placements: cobweb top-left of the hero card (pass `settle` for a
+  one-shot drop-in), the pumpkin beside the "Publish it" how-step, ghost in the
   footer, candy corn sparingly (one or two per page).
 
 ## Limitations

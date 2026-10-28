@@ -12,6 +12,7 @@ import {
   GamepadDoodle,
   ArcadeAccent,
   WhimsyBackdrop,
+  WhimsyBurst,
   HALLOWEEN,
   Bat,
   Ghost,
@@ -25,6 +26,7 @@ export function Demo() {
     () => new URLSearchParams(window.location.search).has('dark'),
   );
   const [burst, setBurst] = useState(0); // re-key to replay the one-shot twinkle
+  const [boom, setBoom] = useState(0); // fire the confetti burst
 
   return (
     <>
@@ -68,13 +70,14 @@ export function Demo() {
               <CandyCorn size={20} />
               <Bat size={18} tone="lime" />
               <Ghost size={20} tone="ink" />
+              <Pumpkin size={22} tone="ink" />
+            </p>
+            <p className="hw-corner-demo sngw-anchor">
+              <Cobweb size={44} />
             </p>
             <p className="note">
               Palette-only Halloween: lime lantern, ink bat & ghost, silk web — no new colours.
               Hover the bat and ghost (one-shot, ≤3px, reduced-motion safe).
-            </p>
-            <p className="hw-corner-demo sngw-anchor">
-              <Cobweb size={44} />
             </p>
           </section>
         )}
@@ -114,10 +117,16 @@ export function Demo() {
           <p className="note">Hover the pad — a ~2px lift over 180ms, off under reduced motion.</p>
         </section>
 
-        {/* One-shot motion, opt-in and reduced-motion safe */}
-        <section>
-          <h2>One-shot motion, opt-in</h2>
+        {/* Super-duper playground (user-ordered amplification) */}
+        <section className="sngw-anchor">
+          <h2>Super-duper playground</h2>
           <p className="motion-row">
+            <button type="button" className="bar-btn" onClick={() => setBoom(boom + 1)}>
+              Burst!
+            </button>
+            <span className="burst-slot">
+              <WhimsyBurst play={boom} size={96} />
+            </span>
             <button type="button" className="bar-btn" onClick={() => setBurst(burst + 1)}>
               Replay twinkle
             </button>
@@ -127,8 +136,16 @@ export function Demo() {
               <ArcadeSparkle twinkle size={12} tone="muted" delay={280} />
             </span>
           </p>
+          <p className="hw-row">
+            <ArcadeAccent variant="star" tone="lime" size={18} />
+            <ArcadeAccent variant="bolt" tone="ink" size={16} />
+            <ArcadeAccent variant="burst" tone="muted" size={16} />
+            <ArcadeSparkle idle size={18} />
+            <ArcadeAccent variant="squiggle" tone="lime" size={44} />
+          </p>
           <p className="note">
-            Staggered entrances run once — nothing loops, and with reduced motion they render settled.
+            Burst fires once per click; sparkles settle in once; the last sparkle floats gently
+            (opt-in <code>idle</code>); the squiggle wiggles on hover. All reduced-motion safe.
           </p>
         </section>
       </main>

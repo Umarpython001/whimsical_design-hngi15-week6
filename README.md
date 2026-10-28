@@ -1,16 +1,44 @@
-# React + Vite
+# start.ng — whimsical rebuild
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A from-scratch, single-page rebuild of the [start.ng](https://start.ng) homepage —
+_Nigeria's home for free browser games, built by the HNG community._
+**Good vibes. Good games.** Same structure, palette, copy and links as the real
+site, with a subtle arcade layer and a Halloween seasonal treatment on top.
 
-Currently, two official plugins are available:
+## Run it
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # production bundle → dist/
+npm run preview  # serve the build → http://localhost:4173
+npm run lint
+```
 
-## React Compiler
+## What's on the page
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+`nav` → hero ("Good vibes. _Good games._") → `#games` (8 featured cards, real
+covers hotlinked, "See all 188 games →", A–Z expander of all 188 community
+games) → `#how` (4 publishing steps) → `#about` (+ 6-question FAQ) → footer.
 
-## Expanding the ESLint configuration
+- **Real data only** — games, creators and covers from `https://api.start.ng/games`
+  (frozen 2026-10-28) in `src/data/games.js`.
+- **Themes** — light cream default + dark olive toggle, `data-theme` on `<html>`,
+  `localStorage.theme`, applied pre-paint (no flash).
+- **Whimsy** — drawn SVG motifs in `src/components/startng-whimsy/`: sparkles,
+  pixel trail, gamepad, cobwebs, bats, ghost, pumpkins, candy corn. Decorative,
+  one-shot motion, `prefers-reduced-motion` honoured, nothing loops.
+- **Seasonal** — `HALLOWEEN` flag in `Halloween.jsx`; flip to `false` after Oct 31
+  and every motif disappears with no layout edits.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Governing documents
+
+`master_prompt.md` (binding brief: refine, don't redesign) · `PRODUCT.md`
+(product facts + locked decisions D1–D8) · `DESIGN.md` (inherited design system
++ what was added) · `agents_communicate.md` (coordination board + work log).
+
+## Artifacts
+
+`.impeccable/research/` live-site captures · `.impeccable/review/` 1440/390 px
+shots in both themes + `detect.json` · `.impeccable/QA-FINDINGS.md` ·
+`.impeccable/copy-diff.md` · `.impeccable/design.json`.
