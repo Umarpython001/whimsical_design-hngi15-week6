@@ -18,3 +18,4 @@ export { WhimsyBackdrop } from './WhimsyBackdrop.jsx';
 export { WhimsyBurst } from './WhimsyBurst.jsx';
 export { HALLOWEEN, Bat, Ghost, Pumpkin, Cobweb, CandyCorn } from './Halloween.jsx';
 export { FlyingBats } from './FlyingBats.jsx';
+export { SparkleTrail } from './SparkleTrail.jsx';

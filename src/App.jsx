@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { featuredGames, azGames, AZ_COUNT } from './data/games.js'
 import './App.css'
 import { ArcadeSparkle } from './components/startng-whimsy/ArcadeSparkle'
@@ -6,6 +6,9 @@ import { GamepadDoodle } from './components/startng-whimsy/GamepadDoodle'
 import { PixelTrail } from './components/startng-whimsy/PixelTrail'
 import { HALLOWEEN, Bat, CandyCorn, Cobweb, Ghost, Pumpkin } from './components/startng-whimsy/Halloween'
 import { FlyingBats } from './components/startng-whimsy/FlyingBats'
+import { SparkleTrail } from './components/startng-whimsy/SparkleTrail'
+import { WhimsyBurst } from './components/startng-whimsy/WhimsyBurst'
+import { initReveal } from './components/startng-whimsy/reveal'
 
 /* Drawn sun/moon icons — no emoji chargers, one stroke weight */
 function SunMoonIcon({ dark }) {
@@ -23,16 +26,25 @@ function SunMoonIcon({ dark }) {
 
 function ThemeToggle({ theme, onToggle, className = '' }) {
   const dark = theme === 'dark'
+  const [boom, setBoom] = useState(0)
   return (
     <button
       type="button"
       className={`theme-toggle ${className}`}
-      onClick={onToggle}
+      onClick={() => {
+        onToggle()
+        setBoom((b) => b + 1)
+      }}
       aria-pressed={dark}
       aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}
       title={dark ? 'Lights on' : 'Lights off'}
     >
-      <SunMoonIcon dark={dark} />
+      <SunMoonIcon key={dark ? 'moon' : 'sun'} dark={dark} />
+      <WhimsyBurst
+        play={boom}
+        size={84}
+        style={{ position: 'absolute', top: '50%', left: '50%', translate: '-50% -50%' }}
+      />
     </button>
   )
 }
@@ -90,7 +102,7 @@ function GameCard({ game }) {
   const [failed, setFailed] = useState(false)
   const initials = game.name.replace(/[^A-Za-z0-9 ]/g, '').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('')
   return (
-    <article className="game">
+    <article className="game sngw-rise">
       {HALLOWEEN && <Bat size={22} className="card-bat" />}
       <a className="game-link" href={game.href} aria-label={`${game.name} by ${game.by} on start.ng`}>
         <div className={`art ${loaded ? 'on' : ''} ${failed ? 'off' : ''}`}>
@@ -203,7 +215,7 @@ function GamesSection() {
   return (
     <section id="games" className="container sngw-anchor" style={{ position: 'relative' }}>
       <div className="section-head">
-        <h2>Games from the community</h2>
+        <h2 className="sngw-rise">Games from the community</h2>
       </div>
       <div className="grid">
         {featuredGames.map((g) => (
@@ -342,10 +354,10 @@ function How() {
         tilt={-8}
         style={{ position: 'absolute', top: '60px', right: '10px', opacity: 0.9 }}
       />
-      <h2>Got a game? Put it on start.ng</h2>
+      <h2 className="sngw-rise">Got a game? Put it on start.ng</h2>
       <ol>
         {HOW_STEPS.map((s) => (
-          <li key={s.b}>
+          <li key={s.b} className="sngw-rise">
             <b>{s.b}</b>
             <span>{s.span}</span>
           </li>
@@ -382,7 +394,7 @@ function About() {
         delay={600}
         style={{ position: 'absolute', top: '8px', right: '6px', opacity: 0.8 }}
       />
-      <h2>About start.ng</h2>
+      <h2 className="sngw-rise">About start.ng</h2>
       <p>
         start.ng is Nigeria's home for browser games, built by the HNG community. Every
         game is free to play in your browser with no download, and many are made in Naija:
@@ -492,6 +504,8 @@ export default function App() {
       return next
     })
 
+  useEffect(() => initReveal(), [])
+
   return (
     <>
       <Header theme={theme} onToggle={toggle} />
@@ -502,6 +516,7 @@ export default function App() {
         <About />
       </main>
       <Footer />
+      <SparkleTrail />
     </>
   )
 }

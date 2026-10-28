@@ -146,11 +146,31 @@
       "bats": 5,
       "composition": "4 ink silhouettes + 1 lime (bat d); sizes 16-30px; svg opacity 0.9",
       "loops": [
-        { "bat": "a", "duration": "15s", "negativeDelay": "-3s" },
-        { "bat": "b", "duration": "19s", "negativeDelay": "-11s" },
-        { "bat": "c", "duration": "13s", "negativeDelay": "-6.5s" },
-        { "bat": "d", "duration": "17s", "negativeDelay": "-1.5s" },
-        { "bat": "e", "duration": "13.5s", "negativeDelay": "-16s" }
+        {
+          "bat": "a",
+          "duration": "15s",
+          "negativeDelay": "-3s"
+        },
+        {
+          "bat": "b",
+          "duration": "19s",
+          "negativeDelay": "-11s"
+        },
+        {
+          "bat": "c",
+          "duration": "13s",
+          "negativeDelay": "-6.5s"
+        },
+        {
+          "bat": "d",
+          "duration": "17s",
+          "negativeDelay": "-1.5s"
+        },
+        {
+          "bat": "e",
+          "duration": "13.5s",
+          "negativeDelay": "-16s"
+        }
       ],
       "durationRange": "13-19s per bat, each with its own path shape, closed (0% == 100%) so loops are seamless",
       "delays": "negative on every bat — each starts mid-loop; there is no take-off moment on load",
@@ -189,7 +209,13 @@
     "flag": "HALLOWEEN = true in src/components/startng-whimsy/Halloween.jsx (flip to false to remove the layer; PixelTrail doodles return beside the see-all button)",
     "pumpkinOrange": "#e8641e",
     "pumpkinScope": "--sngw-pumpkin defined only on .sngw-pumpkin/.sngw-hw elements; consumed by .sngw-fill-pumpkin and --sngw-lantern (var(--sngw-pumpkin, var(--lime))); never on UI chrome, text, or page tokens",
-    "motifs": ["Bat", "Ghost", "Pumpkin", "Cobweb", "CandyCorn"],
+    "motifs": [
+      "Bat",
+      "Ghost",
+      "Pumpkin",
+      "Cobweb",
+      "CandyCorn"
+    ],
     "placement": "hero corners (cobwebs top-left/top-right with settle, ghost bottom-right), one bat per featured card (card-bat), footer cobweb + lime bat, candy corn in how, lantern inside the CTA, pumpkin beside the see-all row",
     "motion": {
       "pumpkin": "sngw-wiggle 500ms on hover (rotate -7deg/5deg settle)",
@@ -199,5 +225,39 @@
     },
     "smallScreens": "corner motifs + see-all pumpkin + see-all trail dots + .sngw-batfly hidden <=640px; small inline motifs remain",
     "provenance": "Addition by this rebuild; all non-pumpkin colour comes from the inherited page tokens"
+  },
+  "superWhimsy": {
+    "sparkleTrail": {
+      "trigger": "pointermove",
+      "rateLimitMs": 110,
+      "maxConcurrent": 12,
+      "popDurationMs": [
+        520,
+        700
+      ],
+      "tones": [
+        "lime",
+        "pumpkin",
+        "ink"
+      ],
+      "reducedMotion": "disabled entirely",
+      "pointer": "fine only"
+    },
+    "reveal": {
+      "targets": [
+        "featured cards",
+        "how-step chips",
+        "section h2"
+      ],
+      "motion": "one-shot rise 14px + fade, staggered 60-70ms",
+      "failsafeMs": 900,
+      "noJs": "content visible"
+    },
+    "themeToggle": {
+      "twirl": "one-shot -140deg->0deg, 450ms on keyed remount",
+      "burst": "WhimsyBurst 84px one-shot per toggle"
+    },
+    "faq": "details[open] pumpkin wiggle once",
+    "policy": "still exactly one looping animation (FlyingBats)"
   }
 }

@@ -322,3 +322,14 @@ The sanctioned decorative layer. Rules, all evidenced in `startng-whimsy.css`:
 - **Don't** ship stock/emoji/icon-font decoratives, or place a decorative mark where it can cover text, intercept a click, or take focus (flying bats stay in the hero's upper/side margins).
 - **Don't** exceed the sticker-lift vocabulary for depth (no elevation tiers, no blurred shadows).
 - **Don't** let the Halloween layer touch UI chrome, text colour, or focus states — it decorates corners only, and clears out of narrow viewports entirely.
+
+## Addendum — super-whimsy pass (Oct 28, MAIN)
+
+Shipped after the flight layer; all palette-clean, all one-shot or interaction-triggered:
+
+- **SparkleTrail** (`SparkleTrail.jsx`): pointer-driven sparkle pops — fixed overlay `z-80`, spawns ≤9/s on `pointermove` (`pointer: fine` only), ≤12 concurrent, each a 520–700ms one-shot scale+fade in lime / pumpkin / ink. Entirely off under reduced motion.
+- **Scroll reveal** (`reveal.js` + `.sngw-rise`): one-shot rise+fade (14px, ~0.5s) on featured cards (60ms stagger steps), how-step chips (70ms), and the three section H2s. The hiding class is armed from JS only — without JS or under reduced motion everything is simply visible; a 900ms failsafe force-reveals all.
+- **Theme toggle**: the sun/moon icon is keyed and remounts on every flip, replaying a one-shot `sngw-twirl` (−140°→0°, 0.45s); `WhimsyBurst` (one-shot pixel-confetti poof, ~84px, from the kit) fires from the button centre on each toggle.
+- **FAQ**: `details[open]` plays the shared `sngw-wiggle` once on that row's pumpkin marker.
+
+Motion-policy status: still exactly ONE looping animation on the page (FlyingBats, user-ordered). Everything else is one-shot or responds to user input.

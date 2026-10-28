@@ -521,3 +521,102 @@ html[data-halloween] .sngw-halloween-off { display: none !important; }
   justify-content: center;
   border-radius: 50%;
 }
+
+/* ---------- Super-whimsy pass (MAIN) ----------
+   SparkleTrail: pointer-driven one-shot pops (user-driven motion, throttled,
+   capped at 12 concurrent, each gone in <650ms). Reveal: one-shot rise-ins
+   with per-index stagger. Toggle twirl + FAQ pumpkin wiggle: interaction-
+   triggered one-shots. Nothing here loops except the sanctioned bat flight. */
+
+.sngw-trailfx {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+}
+
+.sngw-trailfx__pop {
+  position: absolute;
+  translate: -50% -50%;
+  animation: sngw-pop-fade 560ms cubic-bezier(0.22, 0.9, 0.3, 1) forwards;
+}
+
+@keyframes sngw-pop-fade {
+  0% {
+    scale: 0.2;
+    opacity: 0;
+  }
+  35% {
+    scale: 1;
+    opacity: 0.95;
+  }
+  100% {
+    scale: 0.35;
+    opacity: 0;
+  }
+}
+
+.sngw-reveal-armed .sngw-rise {
+  opacity: 0;
+  translate: 0 14px;
+}
+
+.sngw-reveal-armed .sngw-rise--in {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity 0.5s ease-out var(--sngw-rise-delay, 0ms),
+    translate 0.55s cubic-bezier(0.22, 0.9, 0.3, 1) var(--sngw-rise-delay, 0ms);
+}
+
+.grid .sngw-rise:nth-child(2) { --sngw-rise-delay: 60ms; }
+.grid .sngw-rise:nth-child(3) { --sngw-rise-delay: 120ms; }
+.grid .sngw-rise:nth-child(4) { --sngw-rise-delay: 180ms; }
+.grid .sngw-rise:nth-child(5) { --sngw-rise-delay: 90ms; }
+.grid .sngw-rise:nth-child(6) { --sngw-rise-delay: 150ms; }
+.grid .sngw-rise:nth-child(7) { --sngw-rise-delay: 210ms; }
+.grid .sngw-rise:nth-child(8) { --sngw-rise-delay: 270ms; }
+
+.how .sngw-rise:nth-child(2) { --sngw-rise-delay: 70ms; }
+.how .sngw-rise:nth-child(3) { --sngw-rise-delay: 140ms; }
+.how .sngw-rise:nth-child(4) { --sngw-rise-delay: 210ms; }
+
+.theme-toggle {
+  position: relative;
+}
+
+/* The icon remounts on every theme flip (keyed), so this one-shot twirl
+   replays exactly once per toggle — and greets once on first load. */
+.theme-toggle > svg:first-of-type {
+  animation: sngw-twirl 0.45s cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+
+@keyframes sngw-twirl {
+  from {
+    rotate: -140deg;
+    scale: 0.55;
+  }
+  to {
+    rotate: 0deg;
+    scale: 1;
+  }
+}
+
+.faq details[open] .faq-pumpkin {
+  animation: sngw-wiggle 0.5s cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sngw-trailfx {
+    display: none;
+  }
+  .sngw-reveal-armed .sngw-rise {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+  .theme-toggle > svg:first-of-type,
+  .faq details[open] .faq-pumpkin {
+    animation: none;
+  }
+}
