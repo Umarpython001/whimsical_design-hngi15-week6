@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>startng-whimsy — component demo</title>
+    <style>
+      /* Real-site tokens (same values as .impeccable/research/startng-real.css)
+         so the demo shows exactly how the components will look once the main
+         build wires the global tokens. */
+      :root {
+        --bg: #f6f5ee;
+        --card: #fffefa;
+        --ink: #292a23;
+        --muted: #6b6c63;
+        --line: #e4e2d6;
+        --lime: #d8fd71;
+        --on-solid: #fff;
+        --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        color-scheme: light;
+      }
+      [data-theme='dark'] {
+        --bg: #292a23;
+        --card: #33342c;
+        --ink: #f6f5ee;
+        --muted: #b0b1a6;
+        --line: #4a4b41;
+        --on-solid: #292a23;
+        color-scheme: dark;
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 16px/1.5 system-ui, 'Segoe UI', Roboto, sans-serif;
+        transition: background-color 180ms ease;
+      }
+
+      .bar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 22px;
+        border-bottom: 1px solid var(--line);
+        background: var(--card);
+      }
+      .bar-note { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+      .bar-btn {
+        margin-left: auto;
+        border: 1px solid var(--line);
+        background: var(--bg);
+        color: var(--ink);
+        border-radius: 999px;
+        padding: 7px 16px;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      main { max-width: 960px; margin: 0 auto; padding: 0 22px 72px; }
+
+      section { padding: 52px 28px; margin: 28px 0; }
+      .hero, .how { position: relative; overflow: hidden; background: var(--card); border: 1px solid var(--line); border-radius: 18px; }
+
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 10px;
+      }
+      h1 { font-size: clamp(34px, 6vw, 54px); line-height: 1.05; margin: 0 0 12px; letter-spacing: -0.03em; }
+      h2 { font-size: 24px; margin: 0 0 10px; letter-spacing: -0.02em; }
+      .lead { color: var(--muted); max-width: 52ch; margin: 0 0 20px; }
+
+      mark {
+        background: linear-gradient(transparent 62%, var(--lime) 62%, var(--lime) 92%, transparent 92%);
+        padding: 0 0.06em;
+        color: inherit;
+      }
+
+      .cta-row { display: flex; align-items: center; gap: 14px; margin: 0; }
+      .btn {
+        display: inline-block;
+        background: var(--ink);
+        color: var(--on-solid);
+        border-radius: 999px;
+        padding: 11px 22px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 18px 0 10px; }
+      .card {
+        position: relative;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 0 0 14px;
+        overflow: hidden;
+        transition: transform 180ms cubic-bezier(0.3, 0.7, 0.4, 1);
+      }
+      .card:hover { transform: translateY(-3px); }
+      .card h3 { margin: 12px 14px 2px; font-size: 16px; }
+      .card .muted { color: var(--muted); font-size: 13px; margin: 0 14px; }
+      .card-cover { height: 110px; background: var(--lime); opacity: 0.55; }
+
+      .how { text-align: center; }
+      .how svg { margin: 10px auto; }
+
+      .hw-row { display: flex; align-items: center; justify-content: center; gap: 26px; flex-wrap: wrap; margin: 18px 0 8px; }
+      .hw-corner-demo {
+        position: relative;
+        max-width: 300px;
+        height: 110px;
+        margin: 18px auto 0;
+        border: 1px dashed var(--line);
+        border-radius: 12px;
+      }
+
+      .motion-row { display: flex; align-items: center; gap: 20px; margin: 16px 0; }
+      .motion-sparkles { display: inline-flex; align-items: center; gap: 12px; }
+
+      .note { color: var(--muted); font-size: 13.5px; margin: 6px 0 0; }
+    </style>
+  </head>
+  <body>
+    <div id="demo-root"></div>
+    <script type="module" src="./demo.jsx"></script>
+  </body>
+</html>

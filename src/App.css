@@ -182,8 +182,12 @@
   paint-order: stroke fill;
 }
 
-/* The one authored motion moment: the highlighter draws itself in once */
+/* The one authored motion moment: the highlighter draws itself in once.
+   The static gradient is suppressed here so the animated ::before is the
+   only bar — otherwise the bar is complete at first paint and the
+   draw-in promise is dead. Outside .hero, mark keeps its static bar. */
 .hero mark {
+  background: transparent;
   position: relative;
 }
 
@@ -248,6 +252,36 @@
   box-shadow: 0 0 0 3px var(--lime);
 }
 
+/* Halloween: the one CTA carries the seasonal lantern; it wiggles once when
+   the button is hovered or focused, never on idle. */
+.btn-hw {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-pumpkin {
+  flex: none;
+}
+
+.btn-hw:hover .btn-pumpkin,
+.btn-hw:focus-visible .btn-pumpkin {
+  animation: btn-pumpkin-wiggle 0.5s cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+
+@keyframes btn-pumpkin-wiggle {
+  0%, 100% { rotate: 0deg; }
+  30% { rotate: -9deg; }
+  65% { rotate: 7deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-hw:hover .btn-pumpkin,
+  .btn-hw:focus-visible .btn-pumpkin {
+    animation: none;
+  }
+}
+
 .btn:active {
   transform: translateY(1px);
   box-shadow: none;
@@ -296,6 +330,7 @@
 }
 
 .game {
+  position: relative;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -306,6 +341,32 @@
   min-width: 0;
   transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.15s,
     box-shadow 0.15s;
+}
+
+/* Halloween: a small ink bat perches on the card's corner and settles in on
+   hover / keyboard focus. Decorative only — it never takes a click. */
+.card-bat {
+  position: absolute;
+  top: -9px;
+  right: 14px;
+  opacity: 0;
+  translate: 0 4px;
+  rotate: -8deg;
+  transition: opacity 0.2s, translate 0.2s, rotate 0.2s;
+  pointer-events: none;
+}
+
+.game:hover .card-bat,
+.game:focus-within .card-bat {
+  opacity: 1;
+  translate: 0 0;
+  rotate: 0deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-bat {
+    transition: none;
+  }
 }
 
 .game:hover {
@@ -653,6 +714,26 @@
   border-radius: 18px;
 }
 
+/* Halloween: each question keeps a tiny lantern; it perks up when its
+   answer is opened. Small enough to read as a bullet, not a decoration. */
+.faq-pumpkin {
+  flex: none;
+  opacity: 0.75;
+  transition: opacity 0.2s, rotate 0.2s;
+}
+
+.faq details[open] .faq-pumpkin,
+.faq summary:hover .faq-pumpkin {
+  opacity: 1;
+  rotate: -8deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-pumpkin {
+    transition: none;
+  }
+}
+
 .faq details p {
   margin: 0;
   padding: 0 18px 16px;
@@ -729,6 +810,20 @@
   .site-footer-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
+  }
+
+  /* Halloween corners are desktop-only: on narrow screens the copy needs
+     the room, and the inline motifs (CTA pumpkin, FAQ lanterns) remain. */
+  .hero .sngw-web,
+  .hero .sngw-bat,
+  .hero .sngw-ghost,
+  .how .sngw-web,
+  .how .sngw-corn,
+  .site-footer .sngw-web,
+  .site-footer .sngw-bat,
+  .card-bat,
+  .see-all .sngw-trail {
+    display: none;
   }
 
   .site-footer-brand {

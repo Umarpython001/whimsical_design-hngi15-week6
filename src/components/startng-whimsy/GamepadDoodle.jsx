@@ -1,10 +1,12 @@
 // GamepadDoodle — an original, hand-drawn browser-game controller.
 // Ink line art with one lime face button; the tilt gives it a doodled feel.
-// Purely decorative. Scale-friendly: everything lives in a 64×40 viewBox.
+// Purely decorative and scale-friendly: everything lives in a 64×40 viewBox.
 //
 // Props:
-//   width  — rendered width in px, default 48 (height follows the 64:40 ratio)
-//   tilt   — degrees of rotation, default -6 (use 0 for a level pad)
+//   width       — rendered width in px, default 48 (height follows 64:40)
+//   tilt        — degrees of rotation, default -6 (use 0 for a level pad)
+//   hoverWiggle — lift the pad ~2px while a `.sngw-anchor` ancestor is hovered
+//                 (≤3px, 180ms, off under prefers-reduced-motion — decision D7)
 //   className/style — passthrough
 
 import './startng-whimsy.css';
@@ -15,16 +17,26 @@ const BODY =
 export function GamepadDoodle({
   width = 48,
   tilt = -6,
+  hoverWiggle = false,
   className = '',
   style,
   ...rest
 }) {
   const height = Math.round(width * (40 / 64));
 
+  const classes = [
+    'sngw',
+    'sngw-pad',
+    hoverWiggle && 'sngw-pad--hover',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <svg
-      className={`sngw sngw-pad${className ? ` ${className}` : ''}`}
-      style={{ ...style, transform: tilt ? `rotate(${tilt}deg)` : undefined }}
+      className={classes}
+      style={{ ...style, '--sngw-tilt': `${tilt}deg` }}
       width={width}
       height={height}
       viewBox="0 0 64 40"

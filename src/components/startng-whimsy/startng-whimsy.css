@@ -56,7 +56,7 @@
 }
 
 .sngw-sparkle--twinkle .sngw-sparkle__sat {
-  animation: sngw-pop 600ms cubic-bezier(0.22, 0.9, 0.35, 1.2) both;
+  animation: sngw-pop 600ms cubic-bezier(0.22, 0.9, 0.35, 1) both;
   animation-delay: calc(var(--sngw-delay) + 240ms);
 }
 
@@ -135,4 +135,162 @@
 /* Keeps narrow viewports clean: decorations hide where space is tight. */
 @media (max-width: 700px) {
   .sngw-backdrop--responsive { display: none; }
+}
+
+/* —∎— Halloween mode (Oct 25–31). Activated by setting `data-halloween` on <html> or a .sngw parent.
+   The Hallowhimsy JS component toggles visibility; this CSS merely exposes the motifs when the
+   JS has determined the date window is active. */
+html[data-halloween] .sngw-halloween-on { display: block !important; }
+html[data-halloween] .sngw-halloween-off { display: none !important; }
+
+/* ==========================================================================
+   Hover micro-interactions
+   --------------------------------------------------------------------------
+   Opt-in: the caller marks an ancestor with `.sngw-anchor`. Lifts stay ≤3px
+   and last 150–200ms; both effects are switched off under reduced motion.
+   ========================================================================== */
+
+.sngw-anchor:hover .sngw-sparkle--hover .sngw-sparkle__star {
+  animation: sngw-twinkle 900ms cubic-bezier(0.22, 0.75, 0.3, 1) both;
+}
+.sngw-anchor:hover .sngw-sparkle--hover .sngw-sparkle__sat {
+  animation: sngw-pop 600ms cubic-bezier(0.22, 0.9, 0.35, 1) both;
+}
+
+.sngw-pad {
+  transform: rotate(var(--sngw-tilt, 0deg));
+  transition: transform 180ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+.sngw-anchor:hover .sngw-pad--hover {
+  transform: rotate(var(--sngw-tilt, 0deg)) translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sngw-anchor:hover .sngw-sparkle--hover .sngw-sparkle__star,
+  .sngw-anchor:hover .sngw-sparkle--hover .sngw-sparkle__sat {
+    animation: none;
+  }
+  .sngw-pad {
+    transition: none;
+  }
+  .sngw-anchor:hover .sngw-pad--hover {
+    transform: rotate(var(--sngw-tilt, 0deg));
+  }
+}
+
+/* ==========================================================================
+   Halloween seasonal layer (user-ordered; see Halloween.jsx)
+   --------------------------------------------------------------------------
+   Palette-only: card-coloured details exist so silhouettes keep eyes/mouths
+   on both themes. The lantern honours a future `--pumpkin` token if MAIN ever
+   defines one, and stays lime (the brand accent) until then — no new colour.
+   Hover micro-interactions follow the same ≤3px / one-shot / reduced-motion
+   rules as the year-round kit.
+   ========================================================================== */
+
+.sngw {
+  --sngw-lantern: var(--pumpkin, var(--lime, #d8fd71));
+}
+
+.sngw-fill-card { fill: var(--card, #fffefa); }
+.sngw-stroke-card { stroke: var(--card, #fffefa); }
+.sngw-fill-lantern { fill: var(--sngw-lantern); }
+
+/* Bat swoop: one-shot rise-and-settle, ≤3px. */
+.sngw-anchor:hover .sngw-bat--hover {
+  animation: sngw-swoop 700ms cubic-bezier(0.3, 0.7, 0.4, 1) both;
+}
+@keyframes sngw-swoop {
+  0% { transform: translateY(0) rotate(0deg); }
+  40% { transform: translateY(-3px) rotate(-4deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Ghost boo: one-shot gentle swell. */
+.sngw-anchor:hover .sngw-ghost--hover {
+  animation: sngw-boo 600ms cubic-bezier(0.3, 0.7, 0.4, 1) both;
+}
+@keyframes sngw-boo {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sngw-anchor:hover .sngw-bat--hover,
+  .sngw-anchor:hover .sngw-ghost--hover {
+    animation: none;
+  }
+}
+
+/* ---------- Halloween layer (Oct 28–31) ----------
+   Palette rule: ink/lime/muted come from the page's own tokens. The one
+   extended hue is the pumpkin orange below, scoped to .sngw-pumpkin only. */
+
+.sngw-hw {
+  --sngw-pumpkin: #e8641e;
+}
+
+.sngw-fill-pumpkin {
+  fill: var(--sngw-pumpkin);
+}
+
+.sngw-fill-card {
+  fill: var(--card);
+}
+
+/* One-shot hover reply (interaction-triggered, not idle): pumpkins wiggle,
+   bats do a tiny wing-flap settle. Guarded by reduced-motion below. */
+.sngw-anchor:hover .sngw-pumpkin,
+.sngw-pumpkin:hover {
+  animation: sngw-wiggle 0.5s cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+
+.sngw-anchor:hover .sngw-bat,
+.sngw-bat:hover {
+  animation: sngw-flap 0.6s cubic-bezier(0.22, 0.9, 0.3, 1);
+}
+
+@keyframes sngw-wiggle {
+  0%,
+  100% {
+    rotate: 0deg;
+  }
+  30% {
+    rotate: -7deg;
+  }
+  65% {
+    rotate: 5deg;
+  }
+}
+
+@keyframes sngw-flap {
+  0%,
+  100% {
+    scale: 1 1;
+  }
+  35% {
+    scale: 1.12 0.82;
+  }
+  70% {
+    scale: 0.94 1.1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sngw-anchor:hover .sngw-pumpkin,
+  .sngw-pumpkin:hover,
+  .sngw-anchor:hover .sngw-bat,
+  .sngw-bat:hover {
+    animation: none;
+  }
+}
+
+/* On small screens the corner motifs drop out (inline ghost remains). */
+@media (max-width: 640px) {
+  .hero .sngw-cobweb,
+  .hero .sngw-bat,
+  .see-all .sngw-pumpkin {
+    display: none;
+  }
 }

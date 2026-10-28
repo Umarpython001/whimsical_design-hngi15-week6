@@ -1,6 +1,10 @@
 import { useRef, useState } from 'react'
 import { featuredGames, azGames, AZ_COUNT } from './data/games.js'
 import './App.css'
+import { ArcadeSparkle } from './components/startng-whimsy/ArcadeSparkle'
+import { GamepadDoodle } from './components/startng-whimsy/GamepadDoodle'
+import { PixelTrail } from './components/startng-whimsy/PixelTrail'
+import { HALLOWEEN, Bat, CandyCorn, Cobweb, Ghost, Pumpkin } from './components/startng-whimsy/Halloween'
 
 /* Drawn sun/moon icons — no emoji chargers, one stroke weight */
 function SunMoonIcon({ dark }) {
@@ -37,7 +41,14 @@ function Header({ theme, onToggle }) {
   const [open, setOpen] = useState(false)
   const closeRef = useRef(null)
   return (
-    <header className="container nav">
+    <header className="container nav" style={{ position: 'relative' }}>
+      {HALLOWEEN && (
+        <Bat
+          size={18}
+          tone="ink"
+          style={{ position: 'absolute', top: '-6px', left: '120px', opacity: 0.7 }}
+        />
+      )}
       <a className="logo" href="/" aria-label="start.ng home">
         <img src="/favicon.svg" alt="" width="26" height="26" />
         <b>
@@ -80,6 +91,7 @@ function GameCard({ game }) {
   const initials = game.name.replace(/[^A-Za-z0-9 ]/g, '').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('')
   return (
     <article className="game">
+      {HALLOWEEN && <Bat size={22} className="card-bat" />}
       <a className="game-link" href={game.href} aria-label={`${game.name} by ${game.by} on start.ng`}>
         <div className={`art ${loaded ? 'on' : ''} ${failed ? 'off' : ''}`}>
           {!failed && (
@@ -110,29 +122,99 @@ function GameCard({ game }) {
 
 function Hero() {
   return (
-    <section className="container hero" id="top">
+    <section className="container hero sngw-anchor" id="top" style={{ position: 'relative' }}>
+      {HALLOWEEN && (
+        <Cobweb
+          size={64}
+          style={{ position: 'absolute', top: '6px', left: '14px', opacity: 0.9 }}
+        />
+      )}
+      {HALLOWEEN && (
+        <Cobweb
+          size={52}
+          style={{
+            position: 'absolute',
+            top: '6px',
+            right: '14px',
+            transform: 'scaleX(-1)',
+            opacity: 0.75,
+          }}
+        />
+      )}
+      <ArcadeSparkle
+        size={24}
+        tone="duo"
+        twinkle
+        delay={200}
+        style={{ position: 'absolute', top: '12%', left: '6%', opacity: 0.9 }}
+      />
+      <ArcadeSparkle
+        size={18}
+        tone="lime"
+        twinkle
+        delay={800}
+        style={{ position: 'absolute', top: '18%', right: '10%', opacity: 0.8 }}
+      />
+      {HALLOWEEN && (
+        <Bat
+          size={30}
+          className="sngw-anchor-hover-reply"
+          style={{ position: 'absolute', top: '24%', right: '4.5%', opacity: 0.95 }}
+        />
+      )}
+      {HALLOWEEN && (
+        <Bat
+          size={20}
+          tone="ink"
+          delay={260}
+          className="sngw-anchor-hover-reply"
+          style={{ position: 'absolute', top: '36%', left: '4.5%', opacity: 0.92 }}
+        />
+      )}
       <p className="eyebrow">Big imagination. Played everywhere.</p>
       <h1>
         Good vibes.
         <br />
-        <mark>Good games.</mark>
+        <mark>Good games.</mark>{' '}
+        <ArcadeSparkle size={34} tone="duo" twinkle delay={400} />
       </h1>
       <p className="lead">
         Games made by builders in the community. Each one lives at its own start.ng
         address. Pick one and play right in your browser.
       </p>
       <div className="actions">
-        <a className="btn" href="#games">
+        <a className="btn btn-hw" href="#games">
           Play now
+          {HALLOWEEN && <Pumpkin size={18} className="btn-pumpkin" />}
         </a>
       </div>
+      {HALLOWEEN && (
+        <Ghost
+          size={30}
+          hoverBoo
+          style={{
+            position: 'absolute',
+            bottom: '10%',
+            right: '8%',
+            opacity: 0.95,
+            rotate: '-6deg',
+          }}
+        />
+      )}
+      <ArcadeSparkle
+        size={20}
+        tone="muted"
+        twinkle
+        delay={1200}
+        style={{ position: 'absolute', bottom: '14%', left: '12%', opacity: 0.7 }}
+      />
     </section>
   )
 }
 
 function GamesSection() {
   return (
-    <section id="games" className="container">
+    <section id="games" className="container sngw-anchor" style={{ position: 'relative' }}>
       <div className="section-head">
         <h2>Games from the community</h2>
       </div>
@@ -141,10 +223,48 @@ function GamesSection() {
           <GameCard key={g.slug} game={g} />
         ))}
       </div>
-      <div className="see-all">
+      <div className="see-all" style={{ position: 'relative' }}>
+        {HALLOWEEN && (
+          <Pumpkin
+            size={34}
+            style={{
+              position: 'absolute',
+              left: 'calc(50% - 208px)',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              opacity: 0.98,
+            }}
+          />
+        )}
+        {!HALLOWEEN && (
+          <PixelTrail
+            direction="right"
+            steps={5}
+            tone="fresh"
+            style={{
+              position: 'absolute',
+              left: 'calc(50% - 200px)',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              opacity: 0.9,
+            }}
+          />
+        )}
         <a className="btn" href="/games">
           See all {AZ_COUNT} games →
         </a>
+        <PixelTrail
+          direction="left"
+          steps={5}
+          tone="fresh"
+          style={{
+            position: 'absolute',
+            right: 'calc(50% - 200px)',
+            top: '50%',
+            transform: 'translateY(-50%) scaleX(-1)',
+            opacity: 0.9,
+          }}
+        />
       </div>
       <details className="az-games">
         <summary>
@@ -199,7 +319,30 @@ const HOW_STEPS = [
 
 function How() {
   return (
-    <section id="how" className="container how">
+    <section id="how" className="container how sngw-anchor" style={{ position: 'relative' }}>
+      {HALLOWEEN && (
+        <Cobweb
+          size={54}
+          style={{
+            position: 'absolute',
+            top: '24px',
+            left: '-6px',
+            transform: 'scaleY(-1)',
+            opacity: 0.6,
+          }}
+        />
+      )}
+      {HALLOWEEN && (
+        <CandyCorn
+          size={20}
+          style={{ position: 'absolute', top: '18px', right: '84px', opacity: 0.95 }}
+        />
+      )}
+      <GamepadDoodle
+        width={56}
+        tilt={-8}
+        style={{ position: 'absolute', top: '60px', right: '10px', opacity: 0.9 }}
+      />
       <h2>Got a game? Put it on start.ng</h2>
       <ol>
         {HOW_STEPS.map((s) => (
@@ -232,7 +375,14 @@ const FAQ = [
 
 function About() {
   return (
-    <section id="about" className="container about">
+    <section id="about" className="container about" style={{ position: 'relative' }}>
+      <ArcadeSparkle
+        size={22}
+        tone="duo"
+        twinkle
+        delay={600}
+        style={{ position: 'absolute', top: '8px', right: '6px', opacity: 0.8 }}
+      />
       <h2>About start.ng</h2>
       <p>
         start.ng is Nigeria&rsquo;s home for browser games, built by the HNG community. Every
@@ -248,11 +398,15 @@ function About() {
           More about start.ng →
         </a>
       </p>
-      <h3>Questions</h3>
+      <h3>
+        Questions{' '}
+        {HALLOWEEN && <Ghost size={22} style={{ verticalAlign: '-4px', opacity: 0.95 }} />}
+      </h3>
       <div className="faq">
         {FAQ.map(([q, a]) => (
           <details key={q}>
             <summary>
+              {HALLOWEEN && <Pumpkin size={17} className="faq-pumpkin" />}
               {q}
               <span className="chev" aria-hidden="true" />
             </summary>
@@ -272,7 +426,27 @@ const FOOTER_COLS = [
 
 function Footer() {
   return (
-    <footer className="container site-footer">
+    <footer className="container site-footer" style={{ position: 'relative' }}>
+      {HALLOWEEN && (
+        <Cobweb
+          size={46}
+          style={{
+            position: 'absolute',
+            top: '18px',
+            right: '10px',
+            transform: 'scale(-1, -1)',
+            opacity: 0.55,
+          }}
+        />
+      )}
+      {HALLOWEEN && (
+        <Bat
+          size={20}
+          tone="lime"
+          className="footer-bat"
+          style={{ position: 'absolute', top: '14px', right: '70px', opacity: 0.85 }}
+        />
+      )}
       <div className="site-footer-grid">
         <div className="site-footer-brand">
           <a className="logo" href="/">

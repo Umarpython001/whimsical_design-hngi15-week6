@@ -15,6 +15,54 @@ export const featuredGames = [
     "lb": false
   },
   {
+    "slug": "lagos-bike-rush",
+    "name": "Lagos Bike Rush",
+    "by": "OBA",
+    "href": "https://lagos-bike-rush.start.ng",
+    "play": "https://lagos-bike-rush.start.ng",
+    "domain": "lagos-bike-rush.start.ng",
+    "cover": "https://lagos-bike-rush.start.ng/cover.png?v=1792309258",
+    "desc": "",
+    "plays": 40,
+    "lb": true
+  },
+  {
+    "slug": "boju-boju",
+    "name": "Boju Boju",
+    "by": "99PlusOne",
+    "href": "https://boju-boju.start.ng",
+    "play": "https://boju-boju.start.ng",
+    "domain": "boju-boju.start.ng",
+    "cover": "https://boju-boju.start.ng/cover.png?v=1792338368",
+    "desc": "",
+    "plays": 22,
+    "lb": true
+  },
+  {
+    "slug": "jemi-game-arcade",
+    "name": "Jemi Game Arcade",
+    "by": "Jemi",
+    "href": "https://jemi-game-arcade.start.ng",
+    "play": "https://jemi-game-arcade.start.ng",
+    "domain": "jemi-game-arcade.start.ng",
+    "cover": "https://jemi-game-arcade.start.ng/cover.png?v=1792287546",
+    "desc": "",
+    "plays": 21,
+    "lb": true
+  },
+  {
+    "slug": "job-hunt",
+    "name": "Job Hunt",
+    "by": "Raji",
+    "href": "https://job-hunt.start.ng",
+    "play": "https://job-hunt.start.ng",
+    "domain": "job-hunt.start.ng",
+    "cover": "https://job-hunt.start.ng/startng-cover.webp?v=1792208405",
+    "desc": "",
+    "plays": 19,
+    "lb": true
+  },
+  {
     "slug": "tesla-skyrun",
     "name": "Tesla Skyrun",
     "by": "Favour",
@@ -48,54 +96,6 @@ export const featuredGames = [
     "cover": "https://inkbreak.start.ng/cover.png?v=1793088584",
     "desc": "Inkbreak is an original ink arena shooter with Turf Clash and Squad Assault across four arenas.",
     "plays": 13,
-    "lb": true
-  },
-  {
-    "slug": "boju-boju",
-    "name": "Boju Boju",
-    "by": "99PlusOne",
-    "href": "https://boju-boju.start.ng",
-    "play": "https://boju-boju.start.ng",
-    "domain": "boju-boju.start.ng",
-    "cover": "https://boju-boju.start.ng/cover.png?v=1792338368",
-    "desc": "",
-    "plays": 22,
-    "lb": true
-  },
-  {
-    "slug": "jemi-game-arcade",
-    "name": "Jemi Game Arcade",
-    "by": "Jemi",
-    "href": "https://jemi-game-arcade.start.ng",
-    "play": "https://jemi-game-arcade.start.ng",
-    "domain": "jemi-game-arcade.start.ng",
-    "cover": "https://jemi-game-arcade.start.ng/cover.png?v=1792287546",
-    "desc": "",
-    "plays": 21,
-    "lb": true
-  },
-  {
-    "slug": "lagos-bike-rush",
-    "name": "Lagos Bike Rush",
-    "by": "OBA",
-    "href": "https://lagos-bike-rush.start.ng",
-    "play": "https://lagos-bike-rush.start.ng",
-    "domain": "lagos-bike-rush.start.ng",
-    "cover": "https://lagos-bike-rush.start.ng/cover.png?v=1792309258",
-    "desc": "",
-    "plays": 40,
-    "lb": true
-  },
-  {
-    "slug": "job-hunt",
-    "name": "Job Hunt",
-    "by": "Raji",
-    "href": "https://job-hunt.start.ng",
-    "play": "https://job-hunt.start.ng",
-    "domain": "job-hunt.start.ng",
-    "cover": "https://job-hunt.start.ng/startng-cover.webp?v=1792208405",
-    "desc": "",
-    "plays": 19,
     "lb": true
   }
 ];

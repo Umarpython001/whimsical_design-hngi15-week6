@@ -1,12 +1,15 @@
 // ArcadeSparkle — a small four-point arcade star with an optional lime
-// satellite dot. Purely decorative: it is aria-hidden and non-interactive.
+// satellite dot. Purely decorative: aria-hidden and non-interactive; safe to
+// place inline with headings or beside CTAs.
 //
 // Props:
-//   size     — px, default 20
-//   tone     — 'duo' (ink star + lime satellite, default) | 'ink' | 'lime' | 'muted'
-//   twinkle  — one-shot ~0.9s settle-in animation (opt-in, never loops,
-//              disabled under prefers-reduced-motion)
-//   delay    — ms before the twinkle starts, for staggering a pair
+//   size        — px, default 20
+//   tone        — 'duo' (ink star + lime satellite, default) | 'ink' | 'lime' | 'muted'
+//   twinkle     — one-shot ~0.9s settle-in animation (opt-in, never loops,
+//                 disabled under prefers-reduced-motion)
+//   hoverTwinkle— replay the twinkle while a `.sngw-anchor` ancestor is
+//                 hovered (opt-in micro-interaction, also reduced-motion safe)
+//   delay       — ms before the twinkle starts, for staggering a pair
 //   className/style — passthrough for positioning from the caller
 
 import './startng-whimsy.css';
@@ -18,6 +21,7 @@ export function ArcadeSparkle({
   size = 20,
   tone = 'duo',
   twinkle = false,
+  hoverTwinkle = false,
   delay = 0,
   className = '',
   style,
@@ -27,6 +31,7 @@ export function ArcadeSparkle({
     'sngw',
     'sngw-sparkle',
     twinkle && 'sngw-sparkle--twinkle',
+    hoverTwinkle && 'sngw-sparkle--hover',
     className,
   ]
     .filter(Boolean)
