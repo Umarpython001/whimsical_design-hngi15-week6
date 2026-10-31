@@ -617,28 +617,90 @@
   }
 }
 
-.az-games ul {
-  list-style: none;
-  margin: 0;
-  padding: 0 18px 16px;
-  columns: 3 200px;
-  column-gap: 24px;
+/* Visual A–Z index (user-ordered 2026-10-31): cover tiles instead of a name
+   list — 188 real covers from the live API data, lazy-loaded, initials
+   fallback when a cover is missing or dead. Replaces the old <ul> styles. */
+.az-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 12px;
+  margin: 4px 18px 18px;
 }
 
-.az-games li {
-  padding: 4px 0;
-  break-inside: avoid;
-  font-size: 0.95rem;
+.az-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-.az-games li a:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.az-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
-.az-games li span {
+.az-art {
+  position: relative;
+  display: block;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--lime) 18%, var(--card));
+}
+
+.az-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.az-initials {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 26px;
+  letter-spacing: 0.04em;
+  color: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+.az-name {
+  font-size: 13px;
+  line-height: 1.25;
+  font-weight: 600;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.az-by {
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 11px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .az-tile {
+    transition: none;
+  }
+
+  .az-tile:hover {
+    transform: none;
+  }
 }
 
 /* ---------- how ---------- */

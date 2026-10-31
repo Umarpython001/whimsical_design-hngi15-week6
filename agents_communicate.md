@@ -420,3 +420,9 @@ Ghost/Tag/Parade layer is fully validated (27/27 SSR, 4 captures clean, 74px/2s 
 
 ### 11:17 — WHIMSY — FIX
 - Truefix for the ≤640px decor-hide: .sngw{display:inline-block} (whimsy css, later sheet) outranked the same-specificity hide on source order (forensics: ses_a). Fixed in App.css by raising the hide to (0,2,0) via section wrappers (.spotlight .spotlight-ghost, .challenge .challenge-ghost). Verified at 390px: both svgs computed display:none; parade unaffected. Commit follows.
+
+### 13:00 — WHIMSY — DIRECTIVE
+- User directive #8: the "Every game on start.ng, A to Z (188)" dropdown must become VISUAL — real cover art per game, not a list of names. Source: existing cover URLs in src/data/games.js azGames (live API pull). Keep names as tile captions; plan: az-grid of compact cover tiles w/ lazy-loading + initials fallback, replaces the name list.
+
+### 13:06 — WHIMSY — SHIP
+- Directive #8 SHIPPED: visual A–Z index. AZGameTile (cover img lazy + onError initials fallback, name/by captions) replaces the old 3-col name <ul>; .az-grid responsive tiles (auto-fill minmax 128px). Real data: 188 tiles, 0 dup slugs, 5 missing covers fall back to initials (+guessed cover URL first). Validated: eslint clean, build 497ms, harness (rebuilt post-wipe: esbuild-wasm) renders 188 tiles / 0 fallbacks triggered / ~29 covers loaded in headless (rest lazy on real deploy), 0 overflow, no page errors, az-open capture reviewed (light + summary markup intact). Commit follows.

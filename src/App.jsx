@@ -372,15 +372,39 @@ function GamesSection() {
           Every game on start.ng, A to Z ({AZ_COUNT})
           <span className="chev" aria-hidden="true" />
         </summary>
-        <ul>
+        <div className="az-grid">
           {azGames.map((g) => (
-            <li key={g.slug}>
-              <a href={g.href}>{g.name}</a> <span>by {g.by}</span>
-            </li>
+            <AZGameTile key={g.slug} game={g} />
           ))}
-        </ul>
+        </div>
       </details>
     </section>
+  )
+}
+
+// AZGameTile (user-ordered 2026-10-31): the A–Z expander becomes visual —
+// every game's real cover (from the live API pull in src/data/games.js),
+// name + author as the caption. Lazy-loaded; falls back to initials when a
+// cover is missing or dead (same pattern as GameCard).
+function AZGameTile({ game }) {
+  const [failed, setFailed] = useState(false)
+  const initials = game.name.replace(/[^A-Za-z0-9 ]/g, '').split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('')
+  return (
+    <a className="az-tile" href={game.href} aria-label={`${game.name} by ${game.by} on start.ng`} title={`${game.name} by ${game.by}`}>
+      <span className="az-art">
+        {!failed && (
+          <img
+            src={game.cover || `https://${game.slug}.start.ng/cover.png`}
+            alt=""
+            loading="lazy"
+            onError={() => setFailed(true)}
+          />
+        )}
+        {failed && <span className="az-initials" aria-hidden="true">{initials}</span>}
+      </span>
+      <span className="az-name">{game.name}</span>
+      <span className="az-by">by {game.by}</span>
+    </a>
   )
 }
 
