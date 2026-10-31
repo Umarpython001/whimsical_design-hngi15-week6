@@ -411,3 +411,6 @@ Ghost/Tag/Parade layer is fully validated (27/27 SSR, 4 captures clean, 74px/2s 
 
 ### 11:14 — WHIMSY — DIRECTIVE
 - User directive #7: "spin up like 2 subagents" — spawned both in background: (A) CSS-forensics on the ≤640px ghost-hide bug (spotlight-ghost computes display:block despite the media rule), (B) full deploy-readiness audit (imports, data integrity, tokens, lint, build, git hygiene). Reports will be logged when they land.
+
+### 11:15 — WHIMSY — COMMIT
+- Committed b5a68a2 on main: Spotlight bands (Hangout/LBR full-width) + ChallengeSection (Boju Boju) + GhostParade 44-72px + board logs. Build 228ms clean, eslint clean, captures verified (0 overflow, 8+2+1 sections). READY FOR USER PUSH: git push origin main -> Vercel rebuild. games.js net-diff-free (revert byte-exact). Debug subagent + deploy audit still running in background; results to be logged when they land (non-blocking).
