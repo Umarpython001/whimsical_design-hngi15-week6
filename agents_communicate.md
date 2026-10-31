@@ -417,3 +417,6 @@ Ghost/Tag/Parade layer is fully validated (27/27 SSR, 4 captures clean, 74px/2s 
 
 ### 11:16 — WHIMSY — AUDIT
 - Deploy-readiness auditor (subagent B) complete: 9/9 PASS — import chain (all 11 whimsy files + every App.jsx section resolved), data integrity (featured=8 unique plays-desc, az=188 unique, boju-boju lb:true, Hangout exception documented), HALLOWEEN flag intact, all 5 CSS tokens defined (light+dark), eslint 0/0, vite build green 290ms, board log append-only intact, .gitignore sane, zero retracted-slug leftovers, zero TODO/FIXME. VERDICT: DEPLOY_READY yes. Audited content = exactly what is committed in b5a68a2 (snapshot pre-commit before feature commit; tree unchanged since). Push: user. (CSS-forensics subagent A still running.)
+
+### 11:17 — WHIMSY — FIX
+- Truefix for the ≤640px decor-hide: .sngw{display:inline-block} (whimsy css, later sheet) outranked the same-specificity hide on source order (forensics: ses_a). Fixed in App.css by raising the hide to (0,2,0) via section wrappers (.spotlight .spotlight-ghost, .challenge .challenge-ghost). Verified at 390px: both svgs computed display:none; parade unaffected. Commit follows.

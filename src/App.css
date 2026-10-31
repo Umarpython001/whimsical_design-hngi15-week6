@@ -1089,7 +1089,12 @@
 }
 
 @media (max-width: 640px) {
-  .spotlight-ghost {
+  /* startng-whimsy.css loads after App.css, so its `.sngw { display: inline-block }`
+     (0,1,0) beats any same-specificity hide on source order — bump to (0,2,0)
+     via the real section/card wrappers. No !important needed, and only these
+     two Ghost instances are named; GhostParade hides itself below 640px. */
+  .spotlight .spotlight-ghost,
+  .challenge .challenge-ghost {
     display: none; /* phones stay clean, same convention as the parade */
   }
 }
