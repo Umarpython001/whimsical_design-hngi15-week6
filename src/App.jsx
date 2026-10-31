@@ -212,6 +212,95 @@ function Hero() {
   )
 }
 
+// SpotlightSection (user-ordered 2026-10-31): instead of adding more grid
+// cards, the two most-played REAL games each get a full-width horizontal
+// band — edge to edge, the length of the screen — so the game stands out.
+// All data real (src/data/games.js); ranks are true by plays (57 and 40).
+const SPOTLIGHT = ['hangout', 'lagos-bike-rush']
+
+function SpotlightSection() {
+  const picks = SPOTLIGHT.map((slug) => featuredGames.find((g) => g.slug === slug)).filter(Boolean)
+  if (!picks.length) return null
+  return (
+    <section id="spotlight" className="spotlight-section sngw-anchor" style={{ position: 'relative' }}>
+      {picks.map((game, i) => (
+        <a
+          key={game.slug}
+          className={`spotlight${i % 2 === 1 ? ' spotlight--flip' : ''}`}
+          href={game.play}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <div className="spotlight-art">
+            <img src={game.cover} alt={`${game.name} cover art`} loading="lazy" />
+            {HALLOWEEN && <Ghost size={56} idle className="spotlight-ghost" />}
+          </div>
+          <div className="spotlight-info">
+            <span className="spotlight-eyebrow">
+              {i === 0 ? 'Most played on start.ng' : 'No. 2 in the community'}
+            </span>
+            <h2>{game.name}</h2>
+            <p>
+              {game.by} — {game.plays} plays.{' '}
+              {game.desc ? game.desc : 'Jump in and edge up the leaderboard.'}
+            </p>
+            <span className="btn btn-hw challenge-btn">
+              Play {game.name} →
+              {HALLOWEEN && <Pumpkin size={18} />}
+            </span>
+          </div>
+        </a>
+      ))}
+    </section>
+  )
+}
+
+// ChallengeSection (user-ordered 2026-10-31): one real game, called out.
+// "Can you beat this game?" — starring Boju Boju, the Naija ghost game with a
+// leaderboard. All copy is user-directed seasonal exception; game data is
+// fully real (from the live API pull in src/data/games.js).
+function ChallengeSection() {
+  const game = featuredGames.find((g) => g.slug === 'boju-boju')
+  if (!game) return null
+  return (
+    <section id="challenge" className="container challenge sngw-anchor" style={{ position: 'relative' }}>
+      {HALLOWEEN && (
+        <Cobweb
+          size={54}
+          style={{
+            position: 'absolute',
+            top: '16px',
+            right: '-6px',
+            transform: 'scaleY(-1) scaleX(-1)',
+            opacity: 0.6,
+          }}
+        />
+      )}
+      {HALLOWEEN && (
+        <Bat size={20} style={{ position: 'absolute', top: '30px', left: '16px', opacity: 0.95 }} />
+      )}
+      <a className="challenge-card sngw-anchor" href={game.play} target="_blank" rel="noreferrer">
+        <div className="challenge-art">
+          <img src={game.cover} alt={`${game.name} cover art`} loading="lazy" />
+          {HALLOWEEN && <Ghost size={44} hoverBoo idle className="challenge-ghost" />}
+        </div>
+        <div className="challenge-info">
+          <span className="challenge-eyebrow">Leaderboard challenge</span>
+          <h2 className="sngw-rise">Can you beat this game?</h2>
+          <p>
+            {game.name} by {game.by} — the Naija ghost game. The leaderboard is
+            haunted this season: pass the highscore if you dare.
+          </p>
+          <span className="btn btn-hw challenge-btn">
+            Play {game.name} →
+            {HALLOWEEN && <Pumpkin size={18} className="btn-pumpkin" />}
+          </span>
+        </div>
+      </a>
+    </section>
+  )
+}
+
 function GamesSection() {
   return (
     <section id="games" className="container sngw-anchor" style={{ position: 'relative' }}>
@@ -513,6 +602,8 @@ export default function App() {
       <main>
         <Hero />
         <GamesSection />
+        <SpotlightSection />
+        <ChallengeSection />
         <How />
         <About />
       </main>

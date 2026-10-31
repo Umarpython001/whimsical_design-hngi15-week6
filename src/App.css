@@ -894,3 +894,212 @@
     flex-direction: column;
   }
 }
+
+/* ==========================================================================
+   Challenge section (user-ordered 2026-10-31): one real game called out —
+   "Can you beat this game?" Starring Boju Boju (real leaderboard game).
+   Card follows the site's card anatomy: card bg, line border, ink text.
+   ========================================================================== */
+
+.challenge {
+  padding-top: 8px;
+}
+
+.challenge-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 340px) 1fr;
+  gap: 26px;
+  align-items: center;
+  padding: 22px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 1px color-mix(in srgb, var(--line) 70%, transparent);
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.challenge-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--ink) 14%, transparent);
+}
+
+.challenge-art {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--lime) 22%, var(--card));
+}
+
+.challenge-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.challenge-ghost {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  filter: drop-shadow(0 2px 6px rgb(41 42 35 / 0.18));
+}
+
+.challenge-eyebrow {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.challenge-info h2 {
+  margin: 6px 0 10px;
+  font-size: clamp(26px, 4vw, 40px);
+}
+
+.challenge-info p {
+  color: var(--muted);
+  max-width: 46ch;
+}
+
+.challenge-btn {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 900px) {
+  .challenge-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .challenge .sngw-web,
+  .challenge .sngw-bat {
+    display: none; /* decor off on phones: keeps 390px overflow-free */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .challenge-card {
+    transition: none;
+  }
+  .challenge-card:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Spotlight bands (user-ordered 2026-10-31): the 2 most-played real games,
+   each a full-width horizontal band — inks and backgrounds run edge to edge
+   (the length of the screen) so each game stands out. No .container wrapper:
+   content inset with fluid padding instead. Alternates art side per band.
+   ========================================================================== */
+
+.spotlight-section {
+  position: relative;
+  margin-top: 46px;
+  border-bottom: 1px solid var(--line);
+}
+
+.spotlight {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 480px) 1fr;
+  gap: clamp(24px, 4vw, 44px);
+  align-items: center;
+  padding: 36px clamp(20px, 7vw, 88px);
+  background: color-mix(in srgb, var(--lime) 8%, var(--card));
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.spotlight + .spotlight {
+  border-top: 1px solid var(--line);
+  background: var(--card);
+}
+
+.spotlight-art {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--lime) 20%, var(--card));
+}
+
+.spotlight-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 320ms ease;
+}
+
+.spotlight:hover .spotlight-art img {
+  transform: scale(1.04);
+}
+
+.spotlight-ghost {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  filter: drop-shadow(0 2px 6px rgb(41 42 35 / 0.18));
+}
+
+.spotlight--flip .spotlight-art {
+  order: 2;
+}
+
+.spotlight-eyebrow {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.spotlight-info h2 {
+  margin: 8px 0 10px;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.05;
+}
+
+.spotlight-info p {
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+@media (max-width: 900px) {
+  .spotlight {
+    grid-template-columns: 1fr;
+    padding: 26px 20px;
+  }
+
+  .spotlight--flip .spotlight-art {
+    order: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .spotlight-ghost {
+    display: none; /* phones stay clean, same convention as the parade */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-art img {
+    transition: none;
+  }
+
+  .spotlight:hover .spotlight-art img {
+    transform: none;
+  }
+}

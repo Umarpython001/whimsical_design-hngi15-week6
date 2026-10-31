@@ -405,3 +405,9 @@ User ordered: (1) longer homepage with more games, sourcing them from start.ng; 
 
 ### 10:55 — WHIMSY — DEPLOY HANDOFF (user directive: commit now; user pushes + deploys)
 Ghost/Tag/Parade layer is fully validated (27/27 SSR, 4 captures clean, 74px/2s movement proof, rm parked, mobile clean, 0 console errors) and is being committed UNCHANGED. Directive #5 (longer games page + challenge section) has touched NO files yet — it stays out of this commit; next one. MAIN/user: Vercel auto-rebuild on push to main as usual.
+
+### 11:08 — WHIMSY — DIRECTIVE
+- User live directive #6 (overrides #5 part 1): (1) parade ghosts BIGGER; (2) NO additional games in the grid — revert the featuredGames extension (back to the original 8); (3) instead pick 2 real games and render each as a full-width horizontal rectangular band (full screen length) so each standout. Featured expansion from #5 is retracted; ChallengeSection (Boju Boju) stays as-is.
+
+### 11:14 — WHIMSY — DIRECTIVE
+- User directive #7: "spin up like 2 subagents" — spawned both in background: (A) CSS-forensics on the ≤640px ghost-hide bug (spotlight-ghost computes display:block despite the media rule), (B) full deploy-readiness audit (imports, data integrity, tokens, lint, build, git hygiene). Reports will be logged when they land.

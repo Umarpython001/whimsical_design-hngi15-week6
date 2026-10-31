@@ -3,7 +3,8 @@
 // A full-viewport haunt: translucent ghosts drift ACROSS the screen, over the
 // page content (cards, headlines, everything), below the nav. Sharing the
 // engineering profile of FlyingBats so it stays playful without getting bossy:
-//   - 5 ghosts, 24–46px, drawn by the CANONICAL Ghost in Halloween.jsx
+//   - 5 ghosts, 44–72px (user directive #6: BIGGER ghosts), drawn by the
+//     CANONICAL Ghost in Halloween.jsx
 //     (composed here — no duplicate silhouette, per the barrel rule)
 //   - TRANSLUCENT on purpose (user order): svg opacity 0.58–0.70, so they
 //     read as ghosts hovering over content and never block readability
@@ -30,11 +31,11 @@ import './startng-whimsy.css';
 import { Ghost } from './Halloween.jsx';
 
 const GHOSTS = [
-  { drift: 'a', tone: 'duo', size: 46 },
-  { drift: 'b', tone: 'ink', size: 30 },
-  { drift: 'c', tone: 'duo', size: 38 },
-  { drift: 'd', tone: 'duo', size: 24 },
-  { drift: 'e', tone: 'duo', size: 34 },
+  { drift: 'a', tone: 'duo', size: 72 },
+  { drift: 'b', tone: 'ink', size: 48 },
+  { drift: 'c', tone: 'duo', size: 62 },
+  { drift: 'd', tone: 'duo', size: 44 },
+  { drift: 'e', tone: 'duo', size: 56 },
 ];
 
 function ParadeGhost({ drift, tone, size }) {
