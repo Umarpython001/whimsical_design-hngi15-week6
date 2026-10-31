@@ -19,6 +19,9 @@ import {
   Pumpkin,
   Cobweb,
   CandyCorn,
+  FlyingBats,
+  GhostParade,
+  HalloweenTag,
 } from './index.js';
 
 export function Demo() {
@@ -42,6 +45,9 @@ export function Demo() {
         {/* Hero-style section: halloween backdrop + headline accent + CTA trail */}
         <section className="hero sngw-anchor">
           {HALLOWEEN ? <WhimsyBackdrop variant="halloween" /> : <WhimsyBackdrop variant="corners" />}
+          {HALLOWEEN && <FlyingBats />}
+          <GhostParade />
+          <HalloweenTag />
           <p className="eyebrow">
             <ArcadeSparkle size={15} tone="duo" hoverTwinkle />
             Big imagination. Played everywhere.

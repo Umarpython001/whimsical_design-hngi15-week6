@@ -16,6 +16,7 @@ export { GamepadDoodle } from './GamepadDoodle.jsx';
 export { ArcadeAccent } from './ArcadeAccent.jsx';
 export { WhimsyBackdrop } from './WhimsyBackdrop.jsx';
 export { WhimsyBurst } from './WhimsyBurst.jsx';
-export { HALLOWEEN, Bat, Ghost, Pumpkin, Cobweb, CandyCorn } from './Halloween.jsx';
+export { HALLOWEEN, Bat, Ghost, Pumpkin, Cobweb, CandyCorn, HalloweenTag } from './Halloween.jsx';
 export { FlyingBats } from './FlyingBats.jsx';
 export { SparkleTrail } from './SparkleTrail.jsx';
+export { GhostParade } from './GhostParade.jsx';

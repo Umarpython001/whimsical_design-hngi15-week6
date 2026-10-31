@@ -4,11 +4,12 @@ import './App.css'
 import { ArcadeSparkle } from './components/startng-whimsy/ArcadeSparkle'
 import { GamepadDoodle } from './components/startng-whimsy/GamepadDoodle'
 import { PixelTrail } from './components/startng-whimsy/PixelTrail'
-import { HALLOWEEN, Bat, CandyCorn, Cobweb, Ghost, Pumpkin } from './components/startng-whimsy/Halloween'
+import { HALLOWEEN, Bat, CandyCorn, Cobweb, Ghost, Pumpkin, HalloweenTag } from './components/startng-whimsy/Halloween'
 import { FlyingBats } from './components/startng-whimsy/FlyingBats'
 import { SparkleTrail } from './components/startng-whimsy/SparkleTrail'
 import { WhimsyBurst } from './components/startng-whimsy/WhimsyBurst'
 import { initReveal } from './components/startng-whimsy/reveal'
+import { GhostParade } from './components/startng-whimsy/GhostParade'
 
 /* Drawn sun/moon icons — no emoji chargers, one stroke weight */
 function SunMoonIcon({ dark }) {
@@ -517,6 +518,8 @@ export default function App() {
       </main>
       <Footer />
       <SparkleTrail />
+      <GhostParade />
+      <HalloweenTag />
     </>
   )
 }

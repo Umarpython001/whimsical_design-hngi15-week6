@@ -214,3 +214,23 @@ export function CandyCorn({ size = 16, className = '', style, ...rest }) {
     </svg>
   );
 }
+
+// HalloweenTag — a small "Happy Halloween!" sticker (user-ordered, Oct 31).
+// Fixed top-right, below the nav; card surface, ink border, pumpkin tail
+// glyph; one-shot pop-in entrance only. Decorative: aria-hidden, no pointer
+// events. Disappears entirely when HALLOWEEN flips false.
+export function HalloweenTag({ className = '', style, ...rest }) {
+  if (!HALLOWEEN) return null;
+
+  return (
+    <div
+      className={`sngw sngw-hwtag${className ? ` ${className}` : ''}`}
+      style={style}
+      aria-hidden="true"
+      {...rest}
+    >
+      <Pumpkin size={17} />
+      <span className="sngw-hwtag__text">Happy Halloween!</span>
+    </div>
+  );
+}
